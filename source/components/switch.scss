@@ -1,0 +1,50 @@
+// SWITCH
+// -----------------------------------------------------------------------------
+
+@use "../settings" as *;
+@use "../helpers/focus-visible" as *;
+
+.switch {
+  width: 2.5rem;
+  height: 1.5rem;
+  border: $border-width-regular solid $color-neutral-medium;
+  border-radius: $border-radius-full;
+  vertical-align: middle;
+  background-color: $color-white-regular;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%233d3d3d'/></svg>");
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  &:checked {
+    border-color: $color-brand-regular;
+    background-position: right center;
+    background-color: $color-brand-regular;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%23fff'/></svg>");
+  }
+
+  &:focus-visible {
+    @include focus-visible(alternative);
+  }
+
+  &:disabled {
+    border-color: $color-neutral-light-c;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%23d6d6d6'/></svg>");
+  }
+}
+
+// Label
+
+.switch-label {
+  padding-right: $space-small-e;
+  padding-left: $space-small-e;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &.is-disabled {
+    color: $color-neutral-medium;
+    cursor: default;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ignition-vanilla",
+  "version": "1.0.0",
+  "description": "A broad assortment of robust interface building blocks.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixeltrove/ignition-vanilla.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "npm run compile:css && npm run minify:css",
+    "build:js": "npm run compile:js && npm run minify:js",
+    "compile:css": "sass --no-source-map source/index.scss build/index.css",
+    "compile:js": "esbuild --bundle --format=esm source/index.js --outfile=build/index.js",
+    "minify:css": "sass --no-source-map --style=compressed build/index.css build/index.min.css",
+    "minify:js": "esbuild --minify --format=esm build/index.js --outfile=build/index.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.7.2",
+    "sass": "^1.23.0"
+  }
+}
