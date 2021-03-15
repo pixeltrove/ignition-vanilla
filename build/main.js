@@ -186,4 +186,4 @@ const Tabset = (tabset2) => {
 const tabsets = document.querySelectorAll(SELECTOR_TABSET);
 tabsets.forEach((tabset2) => Tabset(tabset2));
 
-// source/index.js
+// source/main.js
