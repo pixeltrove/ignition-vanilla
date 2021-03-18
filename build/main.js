@@ -18,14 +18,13 @@ const Accordion = (accordion2) => {
     collapsible.classList.toggle(CLASS_SHOWN);
   };
   const handleArrowKeys = (event) => {
-    let currentHandle = null;
-    let previousHandle = null;
+    const currentHandle = event.target;
+    const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
+    const previousHandle = handles[currentHandleIndex - 1];
+    const nextHandle = handles[currentHandleIndex + 1];
     switch (event.key) {
       case "ArrowUp":
         event.preventDefault();
-        currentHandle = document.activeElement;
-        currentHandleIndex = Array.from(handles).indexOf(currentHandle);
-        previousHandle = Array.from(handles)[currentHandleIndex - 1];
         if (currentHandle === firstHandle) {
           lastHandle.focus();
         } else {
@@ -34,9 +33,6 @@ const Accordion = (accordion2) => {
         break;
       case "ArrowDown":
         event.preventDefault();
-        currentHandle = document.activeElement;
-        currentHandleIndex = Array.from(handles).indexOf(currentHandle);
-        nextHandle = Array.from(handles)[currentHandleIndex + 1];
         if (currentHandle === lastHandle) {
           firstHandle.focus();
         } else {
@@ -53,9 +49,9 @@ const Accordion = (accordion2) => {
         break;
     }
   };
-  accordion2.addEventListener("keydown", handleArrowKeys);
   handles.forEach((handle) => {
     handle.addEventListener("click", toggle);
+    handle.addEventListener("keydown", handleArrowKeys);
   });
 };
 const accordions = document.querySelectorAll(SELECTOR_ACCORDION);
