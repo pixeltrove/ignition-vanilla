@@ -1,13 +1,13 @@
 // source/components/accordion.js
 const SELECTOR_ACCORDION = ".accordion";
-const SELECTOR_HANDLE = ".accordion-handle";
+const SELECTOR_TAB = ".accordion-tab";
 const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 const Accordion = (accordion2) => {
-  const handles = accordion2.querySelectorAll(SELECTOR_HANDLE);
-  const firstHandle = handles[0];
-  const lastHandle = handles[handles.length - 1];
+  const tabs = accordion2.querySelectorAll(SELECTOR_TAB);
+  const firstTab = tabs[0];
+  const lastTab = tabs[tabs.length - 1];
   const toggle = (event) => {
     const trigger = event.currentTarget;
     const collapsibleId = trigger.getAttribute(DATA_TARGET);
@@ -18,40 +18,40 @@ const Accordion = (accordion2) => {
     collapsible.classList.toggle(CLASS_SHOWN);
   };
   const handleArrowKeys = (event) => {
-    const currentHandle = event.target;
-    const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
-    const previousHandle = handles[currentHandleIndex - 1];
-    const nextHandle = handles[currentHandleIndex + 1];
+    const currentTab = event.target;
+    const currentTabIndex = Array.from(tabs).indexOf(currentTab);
+    const previousTab = tabs[currentTabIndex - 1];
+    const nextTab = tabs[currentTabIndex + 1];
     switch (event.key) {
       case "ArrowUp":
         event.preventDefault();
-        if (currentHandle === firstHandle) {
-          lastHandle.focus();
+        if (currentTab === firstTab) {
+          lastTab.focus();
         } else {
-          previousHandle.focus();
+          previousTab.focus();
         }
         break;
       case "ArrowDown":
         event.preventDefault();
-        if (currentHandle === lastHandle) {
-          firstHandle.focus();
+        if (currentTab === lastTab) {
+          firstTab.focus();
         } else {
-          nextHandle.focus();
+          nextTab.focus();
         }
         break;
       case "Home":
         event.preventDefault();
-        firstHandle.focus();
+        firstTab.focus();
         break;
       case "End":
         event.preventDefault();
-        lastHandle.focus();
+        lastTab.focus();
         break;
     }
   };
-  handles.forEach((handle) => {
-    handle.addEventListener("click", toggle);
-    handle.addEventListener("keydown", handleArrowKeys);
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", toggle);
+    tab.addEventListener("keydown", handleArrowKeys);
   });
 };
 const accordions = document.querySelectorAll(SELECTOR_ACCORDION);
@@ -192,13 +192,13 @@ notifications.forEach((notification2) => Notification(notification2));
 
 // source/components/tabset.js
 const SELECTOR_TABSET = ".tabset";
-const SELECTOR_TAB = ".tabset-tab";
+const SELECTOR_TAB2 = ".tabset-tab";
 const SELECTOR_PANEL = ".tabset-panel";
 const CLASS_ACTIVATED3 = "is-activated";
 const CLASS_SHOWN4 = "is-shown";
 const DATA_TARGET4 = "data-target";
 const Tabset = (tabset2) => {
-  const tabs = tabset2.querySelectorAll(SELECTOR_TAB);
+  const tabs = tabset2.querySelectorAll(SELECTOR_TAB2);
   const panels = tabset2.querySelectorAll(SELECTOR_PANEL);
   const activateTab = (event) => {
     const currentTab = event.currentTarget;
