@@ -278,7 +278,7 @@ summary {
 .accordion-heading {
   margin-bottom: 0;
 }
-.accordion-tab {
+.accordion-handle {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -291,33 +291,33 @@ summary {
   line-height: 1.33333333;
   background-color: transparent;
 }
-.accordion-segment:last-child .accordion-tab {
+.accordion-segment:last-child .accordion-handle {
   padding-bottom: calc(0.75rem - 1px);
   border-bottom-width: 1px;
   border-bottom-color: #e0e0e0;
 }
-.accordion-segment:last-child .accordion-tab.is-activated {
+.accordion-segment:last-child .accordion-handle.is-activated {
   border-bottom-color: transparent;
 }
-.accordion-segment:last-child .accordion-tab:focus-visible::after {
+.accordion-segment:last-child .accordion-handle:focus-visible::after {
   bottom: -1px;
 }
 
-.accordion-tab:hover {
+.accordion-handle:hover {
   color: #1060bc;
 }
-.accordion-tab:focus-visible {
+.accordion-handle:focus-visible {
   position: relative;
   outline: 0;
 }
-.accordion-tab:focus-visible::after {
+.accordion-handle:focus-visible::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 4px;
   box-shadow: inset 0 0 0 1px white, 0 0 0 3px #0072d6;
 }
-.accordion-tab:focus-visible::after {
+.accordion-handle:focus-visible::after {
   top: -1px;
 }
 .accordion-icon {
