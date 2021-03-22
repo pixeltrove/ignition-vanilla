@@ -18,7 +18,7 @@ const Accordion = (accordion2) => {
     collapsible.classList.toggle(CLASS_SHOWN);
   };
   const handleArrowKeys = (event) => {
-    const currentHandle = event.target;
+    const currentHandle = event.currentTarget;
     const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
     const previousHandle = handles[currentHandleIndex - 1];
     const nextHandle = handles[currentHandleIndex + 1];

@@ -24,7 +24,7 @@ const Accordion = (accordion) => {
   };
 
   const handleArrowKeys = (event) => {
-    const currentHandle = event.target;
+    const currentHandle = event.currentTarget;
     const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
     const previousHandle = handles[currentHandleIndex - 1];
     const nextHandle = handles[currentHandleIndex + 1];
