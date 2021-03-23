@@ -12,18 +12,18 @@ const Accordion = (accordion) => {
   const firstHandle = handles[0];
   const lastHandle = handles[handles.length - 1];
 
-  const toggle = (event) => {
-    const trigger = event.currentTarget;
-    const collapsibleId = trigger.getAttribute(DATA_TARGET);
-    const collapsible = document.querySelector(`#${collapsibleId}`);
-    const isExpanded = collapsible.classList.contains(CLASS_SHOWN);
+  const togglePanel = (event) => {
+    const currentHandle = event.currentTarget;
+    const panelId = currentHandle.getAttribute(DATA_TARGET);
+    const panel = document.querySelector(`#${panelId}`);
+    const isExpanded = panel.classList.contains(CLASS_SHOWN);
 
-    trigger.classList.toggle(CLASS_ACTIVATED);
-    trigger.setAttribute("aria-expanded", !isExpanded);
-    collapsible.classList.toggle(CLASS_SHOWN);
+    currentHandle.classList.toggle(CLASS_ACTIVATED);
+    currentHandle.setAttribute("aria-expanded", !isExpanded);
+    panel.classList.toggle(CLASS_SHOWN);
   };
 
-  const handleArrowKeys = (event) => {
+  const navigateUsingKeyboard = (event) => {
     const currentHandle = event.currentTarget;
     const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
     const previousHandle = handles[currentHandleIndex - 1];
@@ -58,8 +58,8 @@ const Accordion = (accordion) => {
   };
 
   handles.forEach((handle) => {
-    handle.addEventListener("click", toggle);
-    handle.addEventListener("keydown", handleArrowKeys);
+    handle.addEventListener("click", togglePanel);
+    handle.addEventListener("keydown", navigateUsingKeyboard);
   });
 };
 
