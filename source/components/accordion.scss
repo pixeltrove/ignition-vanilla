@@ -30,12 +30,6 @@
       &.is-activated {
         border-bottom-color: transparent;
       }
-
-      &:focus-visible {
-        &::after {
-          bottom: -1px;
-        }
-      }
     }
 
     &:hover {
@@ -43,10 +37,7 @@
     }
 
     &:focus-visible {
-      @include focus-visible(copy);
-      &::after {
-        top: -1px;
-      }
+      @include focus-visible(default);
     }
   }
 
