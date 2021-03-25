@@ -998,7 +998,6 @@ summary {
 .notification-dismissible .notification-button-dismiss:focus-visible {
   outline: 3px solid #0072d6;
   outline-offset: 3px;
-  position: absolute;
 }
 .notification-dismissible .notification-button-dismiss:active {
   background-color: #c7dffa;

@@ -43,7 +43,6 @@
 
     &:focus-visible {
       @include focus-visible(default);
-      position: absolute;
     }
 
     &:active {
