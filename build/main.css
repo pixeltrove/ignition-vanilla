@@ -304,8 +304,8 @@ summary {
   color: #1060bc;
 }
 .accordion-handle:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .accordion-icon {
   fill: currentColor;
@@ -379,8 +379,8 @@ summary {
   background-color: #0f57a9;
 }
 .button:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .button:active {
   background-color: #0d4d96;
@@ -524,8 +524,8 @@ summary {
   margin-top: -1.5rem;
 }
 .card-media:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .card-media img {
   border-radius: inherit;
@@ -543,8 +543,8 @@ summary {
   background-color: whitesmoke;
 }
 .card-interactive:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .card-interactive:active {
   background-color: #ebebeb;
@@ -568,8 +568,8 @@ summary {
   background-color: #1060bc;
 }
 .checkbox:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .checkbox:disabled {
   border-color: #e0e0e0;
@@ -662,8 +662,8 @@ summary {
   color: #1060bc;
 }
 .dropdown-link:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
   border-radius: 4px;
 }
 .dropdown-separator {
@@ -709,8 +709,8 @@ summary {
   color: #1060bc;
 }
 .global-footer-link:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .global-footer-legal {
   display: flex;
@@ -744,8 +744,8 @@ summary {
   color: #1060bc;
 }
 .global-header-brand:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .global-header-navigation {
   display: flex;
@@ -766,8 +766,8 @@ summary {
   color: #1060bc;
 }
 .global-header-navigation-link:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 @media screen and (min-width: 720px) {
   .global-header {
@@ -929,8 +929,8 @@ summary {
   text-decoration-color: #1060bc;
 }
 .link:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 
 .link-neutral {
@@ -959,8 +959,8 @@ summary {
   color: #1060bc;
 }
 .local-navigation-link:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 
 .notification {
@@ -996,8 +996,8 @@ summary {
   background-color: #d9e9fc;
 }
 .notification-dismissible .notification-button-dismiss:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
   position: absolute;
 }
 .notification-dismissible .notification-button-dismiss:active {
@@ -1068,8 +1068,8 @@ summary {
   background-color: #1060bc;
 }
 .radio:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .radio:disabled {
   border-color: #e0e0e0;
@@ -1107,8 +1107,8 @@ summary {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%23fff'/></svg>");
 }
 .switch:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .switch:disabled {
   border-color: #e0e0e0;
@@ -1182,8 +1182,8 @@ tbody .table-header {
   color: #1060bc;
 }
 .tabset-tab:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .tabset-panel {
   display: none;
@@ -1209,8 +1209,8 @@ tbody .table-header {
   background-color: white;
 }
 .textfield:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px white, 0 0 0 5px #0072d6;
+  outline: 3px solid #0072d6;
+  outline-offset: 3px;
 }
 .textfield:disabled {
   border-color: #e0e0e0;

@@ -5,8 +5,8 @@
 
 @mixin focus-visible($style) {
   @if ($style == "default") {
-    outline: 0;
-    box-shadow: 0 0 0 2px $color-white-regular, 0 0 0 5px $color-focal-regular;
+    outline: 3px solid $color-focal-regular;
+    outline-offset: 3px;
   } @else if ($style == "none") {
     outline: 0;
   } @else {
