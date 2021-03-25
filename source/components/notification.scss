@@ -42,7 +42,7 @@
     }
 
     &:focus-visible {
-      @include focus-visible(alternative);
+      @include focus-visible(default);
     }
 
     &:active {
