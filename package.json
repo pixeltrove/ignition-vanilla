@@ -14,10 +14,12 @@
     "compile:css": "sass --no-source-map source/main.scss build/main.css",
     "compile:js": "esbuild --bundle --format=esm source/main.js --outfile=build/main.js",
     "minify:css": "sass --no-source-map --style=compressed build/main.css build/main.min.css",
-    "minify:js": "esbuild --minify --format=esm build/main.js --outfile=build/main.min.js"
+    "minify:js": "esbuild --minify --format=esm build/main.js --outfile=build/main.min.js",
+    "watch:css": "sass --watch --no-source-map source/main.scss build/main.css",
+    "watch:js": "esbuild --watch --bundle --format=esm source/main.js --outfile=build/main.js"
   },
   "devDependencies": {
-    "esbuild": "^0.7.2",
-    "sass": "^1.23.0"
+    "esbuild": "^0.10.1",
+    "sass": "^1.32.8"
   }
 }

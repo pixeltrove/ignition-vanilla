@@ -1,11 +1,11 @@
 // source/components/accordion.js
-const SELECTOR_ACCORDION = ".accordion";
-const SELECTOR_HANDLE = ".accordion-handle";
-const CLASS_ACTIVATED = "is-activated";
-const CLASS_SHOWN = "is-shown";
-const DATA_TARGET = "data-target";
-const Accordion = (accordion2) => {
-  const handles = accordion2.querySelectorAll(SELECTOR_HANDLE);
+var SELECTOR_ACCORDION = ".accordion";
+var SELECTOR_HANDLE = ".accordion-handle";
+var CLASS_ACTIVATED = "is-activated";
+var CLASS_SHOWN = "is-shown";
+var DATA_TARGET = "data-target";
+var Accordion = (accordion) => {
+  const handles = accordion.querySelectorAll(SELECTOR_HANDLE);
   const firstHandle = handles[0];
   const lastHandle = handles[handles.length - 1];
   const togglePanel = (event) => {
@@ -54,31 +54,31 @@ const Accordion = (accordion2) => {
     handle.addEventListener("keydown", navigateUsingKeyboard);
   });
 };
-const accordions = document.querySelectorAll(SELECTOR_ACCORDION);
-accordions.forEach((accordion2) => Accordion(accordion2));
+var accordions = document.querySelectorAll(SELECTOR_ACCORDION);
+accordions.forEach((accordion) => Accordion(accordion));
 
 // source/components/dialog.js
-const SELECTOR_DIALOG = ".dialog";
-const SELECTOR_BACKDROP = ".dialog-backdrop";
-const CLASS_NO_SCROLL = "no-scroll";
-const CLASS_SHOWN2 = "is-shown";
-const DATA_HIDE = "data-hide";
-const DATA_TARGET2 = "data-target";
-const Dialog = (dialog2) => {
-  const dialogId = dialog2.id;
+var SELECTOR_DIALOG = ".dialog";
+var SELECTOR_BACKDROP = ".dialog-backdrop";
+var CLASS_NO_SCROLL = "no-scroll";
+var CLASS_SHOWN2 = "is-shown";
+var DATA_HIDE = "data-hide";
+var DATA_TARGET2 = "data-target";
+var Dialog = (dialog) => {
+  const dialogId = dialog.id;
   const trigger = document.querySelector(`[${DATA_TARGET2}="${dialogId}"]`);
-  const backdrop = dialog2.closest(SELECTOR_BACKDROP);
+  const backdrop = dialog.closest(SELECTOR_BACKDROP);
   const show = () => {
-    dialog2.addEventListener("click", hide);
+    dialog.addEventListener("click", hide);
     backdrop.addEventListener("click", hide);
     document.addEventListener("keyup", hide);
     backdrop.classList.add(CLASS_SHOWN2);
     toggleScroll();
-    trapFocus(dialog2);
+    trapFocus(dialog);
   };
   const hide = (event) => {
     if (event.target.hasAttribute(DATA_HIDE) && event.type === "click" || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
-      dialog2.removeEventListener("click", hide);
+      dialog.removeEventListener("click", hide);
       backdrop.removeEventListener("click", hide);
       document.removeEventListener("keyup", hide);
       backdrop.classList.remove(CLASS_SHOWN2);
@@ -98,8 +98,8 @@ const Dialog = (dialog2) => {
       }
     }
   };
-  const trapFocus = (dialog3) => {
-    const focusableElements = dialog3.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+  const trapFocus = (dialog2) => {
+    const focusableElements = dialog2.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
     const firstFocusableElement = focusableElements[0];
     const lastFocusableElement = focusableElements[focusableElements.length - 1];
     const cycleFocus = (event) => {
@@ -121,43 +121,43 @@ const Dialog = (dialog2) => {
         }
       }
     };
-    dialog3.addEventListener("keydown", cycleFocus);
-    dialog3.setAttribute("tabindex", -1);
-    dialog3.focus();
+    dialog2.addEventListener("keydown", cycleFocus);
+    dialog2.setAttribute("tabindex", -1);
+    dialog2.focus();
   };
   trigger.addEventListener("click", show);
 };
-const dialogs = document.querySelectorAll(SELECTOR_DIALOG);
-dialogs.forEach((dialog2) => Dialog(dialog2));
+var dialogs = document.querySelectorAll(SELECTOR_DIALOG);
+dialogs.forEach((dialog) => Dialog(dialog));
 
 // source/components/dropdown.js
-const SELECTOR_DROPDOWN = ".dropdown";
-const CLASS_ACTIVATED2 = "is-activated";
-const CLASS_SHOWN3 = "is-shown";
-const DATA_TARGET3 = "data-target";
-const Dropdown = (dropdown2) => {
-  const dropdownId = dropdown2.id;
+var SELECTOR_DROPDOWN = ".dropdown";
+var CLASS_ACTIVATED2 = "is-activated";
+var CLASS_SHOWN3 = "is-shown";
+var DATA_TARGET3 = "data-target";
+var Dropdown = (dropdown) => {
+  const dropdownId = dropdown.id;
   const trigger = document.querySelector(`[${DATA_TARGET3}="${dropdownId}"]`);
   const show = () => {
     trigger.classList.add(CLASS_ACTIVATED2);
     trigger.setAttribute("aria-expanded", true);
-    dropdown2.classList.add(CLASS_SHOWN3);
+    dropdown.classList.add(CLASS_SHOWN3);
     document.addEventListener("click", hideOnOutsideClick);
   };
   const hide = () => {
     trigger.classList.remove(CLASS_ACTIVATED2);
     trigger.setAttribute("aria-expanded", false);
-    dropdown2.classList.remove(CLASS_SHOWN3);
+    dropdown.classList.remove(CLASS_SHOWN3);
   };
   const hideOnOutsideClick = (event) => {
-    if (!trigger.contains(event.target) && !dropdown2.contains(event.target)) {
+    if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
       hide();
       document.removeEventListener("click", hideOnOutsideClick);
     }
   };
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = dropdown2.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+      const focusableElements = dropdown.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
       if (document.activeElement === lastFocusableElement && !tabBackward || document.activeElement === trigger && tabBackward) {
@@ -166,40 +166,40 @@ const Dropdown = (dropdown2) => {
     }
   };
   const toggle = () => {
-    const isExpanded = dropdown2.classList.contains(CLASS_SHOWN3);
+    const isExpanded = dropdown.classList.contains(CLASS_SHOWN3);
     return isExpanded ? hide() : show();
   };
   trigger.addEventListener("click", toggle);
   trigger.addEventListener("keydown", hideOnTab);
-  dropdown2.addEventListener("keydown", hideOnTab);
+  dropdown.addEventListener("keydown", hideOnTab);
 };
-const dropdowns = document.querySelectorAll(SELECTOR_DROPDOWN);
-dropdowns.forEach((dropdown2) => Dropdown(dropdown2));
+var dropdowns = document.querySelectorAll(SELECTOR_DROPDOWN);
+dropdowns.forEach((dropdown) => Dropdown(dropdown));
 
 // source/components/notification.js
-const SELECTOR_NOTIFICATION = ".notification";
-const SELECTOR_BUTTON_DISMISS = ".notification-button-dismiss";
-const Notification = (notification2) => {
+var SELECTOR_NOTIFICATION = ".notification";
+var SELECTOR_BUTTON_DISMISS = ".notification-button-dismiss";
+var Notification = (notification) => {
   const dismiss = (event) => {
     if (event.target.closest(SELECTOR_BUTTON_DISMISS)) {
-      notification2.remove();
+      notification.remove();
     }
   };
-  notification2.addEventListener("click", dismiss);
+  notification.addEventListener("click", dismiss);
 };
-const notifications = document.querySelectorAll(SELECTOR_NOTIFICATION);
-notifications.forEach((notification2) => Notification(notification2));
+var notifications = document.querySelectorAll(SELECTOR_NOTIFICATION);
+notifications.forEach((notification) => Notification(notification));
 
 // source/components/tabset.js
-const SELECTOR_TABSET = ".tabset";
-const SELECTOR_TAB = ".tabset-tab";
-const SELECTOR_PANEL = ".tabset-panel";
-const CLASS_ACTIVATED3 = "is-activated";
-const CLASS_SHOWN4 = "is-shown";
-const DATA_TARGET4 = "data-target";
-const Tabset = (tabset2) => {
-  const tabs = tabset2.querySelectorAll(SELECTOR_TAB);
-  const panels = tabset2.querySelectorAll(SELECTOR_PANEL);
+var SELECTOR_TABSET = ".tabset";
+var SELECTOR_TAB = ".tabset-tab";
+var SELECTOR_PANEL = ".tabset-panel";
+var CLASS_ACTIVATED3 = "is-activated";
+var CLASS_SHOWN4 = "is-shown";
+var DATA_TARGET4 = "data-target";
+var Tabset = (tabset) => {
+  const tabs = tabset.querySelectorAll(SELECTOR_TAB);
+  const panels = tabset.querySelectorAll(SELECTOR_PANEL);
   const activateTab = (event) => {
     const currentTab = event.currentTarget;
     const panelId = currentTab.getAttribute(DATA_TARGET4);
@@ -220,7 +220,5 @@ const Tabset = (tabset2) => {
   };
   tabs.forEach((tab) => tab.addEventListener("click", activateTab));
 };
-const tabsets = document.querySelectorAll(SELECTOR_TABSET);
-tabsets.forEach((tabset2) => Tabset(tabset2));
-
-// source/main.js
+var tabsets = document.querySelectorAll(SELECTOR_TABSET);
+tabsets.forEach((tabset) => Tabset(tabset));
