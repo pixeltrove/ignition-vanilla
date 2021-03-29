@@ -47,8 +47,15 @@
   }
 
   &-icon {
-    margin-right: $space-small-c;
     fill: currentColor;
+  }
+
+  &-icon-left {
+    margin-right: $space-small-c;
+  }
+
+  &-icon-right {
+    margin-left: $space-small-c;
   }
 }
 
