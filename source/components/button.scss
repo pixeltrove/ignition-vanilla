@@ -45,6 +45,11 @@
       border-color: $color-neutral-light-c;
     }
   }
+
+  &-icon {
+    margin-right: $space-small-c;
+    fill: currentColor;
+  }
 }
 
 // Lean and plain
