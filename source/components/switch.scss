@@ -14,7 +14,7 @@
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%233d3d3d'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='5' fill='%233d3d3d'/></svg>");
   cursor: pointer;
   -webkit-appearance: none;
 
@@ -22,7 +22,7 @@
     border-color: $color-brand-regular;
     background-position: right center;
     background-color: $color-brand-regular;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%23fff'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='5' fill='%23fff'/></svg>");
   }
 
   &:focus-visible {
@@ -31,7 +31,7 @@
 
   &:disabled {
     border-color: $color-neutral-light-c;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><circle cx='8' cy='8' r='5' fill='%23d6d6d6'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='5' fill='%23d6d6d6'/></svg>");
   }
 }
 
