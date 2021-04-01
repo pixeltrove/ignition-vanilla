@@ -62,9 +62,8 @@ const Dialog = (dialog) => {
           if (document.activeElement === firstFocusableElement) {
             event.preventDefault();
             lastFocusableElement.focus();
-          } else if (document.activeElement === element) {
+          } else if (document.activeElement === dialog) {
             event.preventDefault();
-            element.focus();
           }
         } else if (!tabBackward) {
           if (document.activeElement === lastFocusableElement) {
