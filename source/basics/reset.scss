@@ -2,6 +2,7 @@
 // -----------------------------------------------------------------------------
 
 @use "../settings" as *;
+@use "../helpers/focus-visible" as *;
 
 // Universal
 
@@ -21,6 +22,11 @@
 
 :focus:not(:focus-visible) {
   outline: 0;
+}
+
+[contenteditable]:focus-visible,
+[tabindex]:not([tabindex^="-"]):focus-visible {
+  @include focus-visible(default);
 }
 
 // Body
