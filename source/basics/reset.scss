@@ -182,6 +182,11 @@ video {
   height: auto;
 }
 
+audio[controls]:focus-visible,
+video[controls]:focus-visible {
+  @include focus-visible(default);
+}
+
 // Button, input, select, and textarea
 
 button,
