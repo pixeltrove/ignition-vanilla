@@ -24,9 +24,11 @@
   outline: 0;
 }
 
-[contenteditable]:focus-visible,
-[tabindex]:not([tabindex^="-"]):focus-visible {
-  @include focus-visible(default);
+[contenteditable],
+[tabindex]:not([tabindex^="-"]) {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }
 
 // Body
@@ -182,9 +184,11 @@ video {
   height: auto;
 }
 
-audio[controls]:focus-visible,
-video[controls]:focus-visible {
-  @include focus-visible(default);
+audio[controls],
+video[controls] {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }
 
 // Button, input, select, and textarea
