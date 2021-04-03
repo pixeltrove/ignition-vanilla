@@ -1,10 +1,10 @@
-// DROPDOWN
+// FLYOUT
 // -----------------------------------------------------------------------------
 
 @use "../settings" as *;
 @use "../helpers/focus-visible" as *;
 
-.dropdown {
+.flyout {
   position: absolute;
   z-index: $z-index-top;
   display: none;
@@ -45,7 +45,7 @@
   }
 }
 
-.dropdown-wrapper {
+.flyout-wrapper {
   position: relative;
   display: inline-block;
 }

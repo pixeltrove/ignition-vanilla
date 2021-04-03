@@ -3,6 +3,6 @@
 
 import "./components/accordion";
 import "./components/dialog";
-import "./components/dropdown";
+import "./components/flyout";
 import "./components/notification";
 import "./components/tabset";
