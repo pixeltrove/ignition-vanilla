@@ -36,7 +36,7 @@ const Menu = (menu) => {
 
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])");
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
 
