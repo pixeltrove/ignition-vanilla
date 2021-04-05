@@ -1,10 +1,10 @@
-// FLYOUT
+// MENU
 // -----------------------------------------------------------------------------
 
 @use "../settings" as *;
 @use "../helpers/focus-visible" as *;
 
-.flyout {
+.menu {
   position: absolute;
   z-index: $z-index-top;
   display: none;
@@ -45,7 +45,7 @@
   }
 }
 
-.flyout-wrapper {
+.menu-wrapper {
   position: relative;
   display: inline-block;
 }

@@ -1,19 +1,19 @@
-// FLYOUT
+// MENU
 // -----------------------------------------------------------------------------
 
-const SELECTOR_FLYOUT = ".flyout";
+const SELECTOR_MENU = ".menu";
 const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
-const Flyout = (flyout) => {
-  const flyoutId = flyout.id;
-  const trigger = document.querySelector(`[${DATA_TARGET}="${flyoutId}"]`);
+const Menu = (menu) => {
+  const menuId = menu.id;
+  const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
 
   const show = () => {
     trigger.classList.add(CLASS_ACTIVATED);
     trigger.setAttribute("aria-expanded", true);
-    flyout.classList.add(CLASS_SHOWN);
+    menu.classList.add(CLASS_SHOWN);
 
     document.addEventListener("click", hideOnOutsideClick);
   };
@@ -21,11 +21,11 @@ const Flyout = (flyout) => {
   const hide = () => {
     trigger.classList.remove(CLASS_ACTIVATED);
     trigger.setAttribute("aria-expanded", false);
-    flyout.classList.remove(CLASS_SHOWN);
+    menu.classList.remove(CLASS_SHOWN);
   };
 
   const hideOnOutsideClick = (event) => {
-    if (!trigger.contains(event.target) && !flyout.contains(event.target)) {
+    if (!trigger.contains(event.target) && !menu.contains(event.target)) {
       hide();
       document.removeEventListener("click", hideOnOutsideClick);
     }
@@ -33,7 +33,7 @@ const Flyout = (flyout) => {
 
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = flyout.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
 
@@ -44,16 +44,16 @@ const Flyout = (flyout) => {
   };
 
   const toggle = () => {
-    const isExpanded = flyout.classList.contains(CLASS_SHOWN);
+    const isExpanded = menu.classList.contains(CLASS_SHOWN);
 
     return isExpanded ? hide() : show();
   };
 
   trigger.addEventListener("click", toggle);
   trigger.addEventListener("keydown", hideOnTab);
-  flyout.addEventListener("keydown", hideOnTab);
+  menu.addEventListener("keydown", hideOnTab);
 };
 
-const flyouts = document.querySelectorAll(SELECTOR_FLYOUT);
+const menus = document.querySelectorAll(SELECTOR_MENU);
 
-flyouts.forEach((flyout) => Flyout(flyout));
+menus.forEach((menu) => Menu(menu));
