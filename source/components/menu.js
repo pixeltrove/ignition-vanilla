@@ -1,19 +1,19 @@
-// DROPDOWN
+// MENU
 // -----------------------------------------------------------------------------
 
-const SELECTOR_DROPDOWN = ".dropdown";
+const SELECTOR_MENU = ".menu";
 const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
-const Dropdown = (dropdown) => {
-  const dropdownId = dropdown.id;
-  const trigger = document.querySelector(`[${DATA_TARGET}="${dropdownId}"]`);
+const Menu = (menu) => {
+  const menuId = menu.id;
+  const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
 
   const show = () => {
     trigger.classList.add(CLASS_ACTIVATED);
     trigger.setAttribute("aria-expanded", true);
-    dropdown.classList.add(CLASS_SHOWN);
+    menu.classList.add(CLASS_SHOWN);
 
     document.addEventListener("click", hideOnOutsideClick);
   };
@@ -21,11 +21,11 @@ const Dropdown = (dropdown) => {
   const hide = () => {
     trigger.classList.remove(CLASS_ACTIVATED);
     trigger.setAttribute("aria-expanded", false);
-    dropdown.classList.remove(CLASS_SHOWN);
+    menu.classList.remove(CLASS_SHOWN);
   };
 
   const hideOnOutsideClick = (event) => {
-    if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
+    if (!trigger.contains(event.target) && !menu.contains(event.target)) {
       hide();
       document.removeEventListener("click", hideOnOutsideClick);
     }
@@ -33,7 +33,7 @@ const Dropdown = (dropdown) => {
 
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = dropdown.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
 
@@ -44,16 +44,16 @@ const Dropdown = (dropdown) => {
   };
 
   const toggle = () => {
-    const isExpanded = dropdown.classList.contains(CLASS_SHOWN);
+    const isExpanded = menu.classList.contains(CLASS_SHOWN);
 
     return isExpanded ? hide() : show();
   };
 
   trigger.addEventListener("click", toggle);
   trigger.addEventListener("keydown", hideOnTab);
-  dropdown.addEventListener("keydown", hideOnTab);
+  menu.addEventListener("keydown", hideOnTab);
 };
 
-const dropdowns = document.querySelectorAll(SELECTOR_DROPDOWN);
+const menus = document.querySelectorAll(SELECTOR_MENU);
 
-dropdowns.forEach((dropdown) => Dropdown(dropdown));
+menus.forEach((menu) => Menu(menu));
