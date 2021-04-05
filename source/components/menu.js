@@ -10,48 +10,43 @@ const Menu = (menu) => {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
 
-  const show = () => {
-    trigger.classList.add(CLASS_ACTIVATED);
-    trigger.setAttribute("aria-expanded", true);
-    menu.classList.add(CLASS_SHOWN);
+  const toggle = () => {
+    const isExpanded = menu.classList.contains(CLASS_SHOWN);
 
-    document.addEventListener("click", hideOnOutsideClick);
-  };
+    trigger.classList.toggle(CLASS_ACTIVATED);
+    trigger.setAttribute("aria-expanded", !isExpanded);
+    menu.classList.toggle(CLASS_SHOWN);
 
-  const hide = () => {
-    trigger.classList.remove(CLASS_ACTIVATED);
-    trigger.setAttribute("aria-expanded", false);
-    menu.classList.remove(CLASS_SHOWN);
+    if (!isExpanded) {
+      document.addEventListener("click", hideOnOutsideClick);
+      trigger.addEventListener("keydown", hideOnTab);
+      menu.addEventListener("keydown", hideOnTab);
+    } else {
+      document.removeEventListener("click", hideOnOutsideClick);
+      trigger.removeEventListener("keydown", hideOnTab);
+      menu.removeEventListener("keydown", hideOnTab);
+    }
   };
 
   const hideOnOutsideClick = (event) => {
     if (!trigger.contains(event.target) && !menu.contains(event.target)) {
-      hide();
-      document.removeEventListener("click", hideOnOutsideClick);
+      toggle();
     }
   };
 
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable]");
+      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])");
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
 
       if ((document.activeElement === lastFocusableElement && !tabBackward) || (document.activeElement === trigger && tabBackward)) {
-        hide();
+        toggle();
       }
     }
   };
 
-  const toggle = () => {
-    const isExpanded = menu.classList.contains(CLASS_SHOWN);
-
-    return isExpanded ? hide() : show();
-  };
-
   trigger.addEventListener("click", toggle);
-  trigger.addEventListener("keydown", hideOnTab);
-  menu.addEventListener("keydown", hideOnTab);
 };
 
 const menus = document.querySelectorAll(SELECTOR_MENU);
