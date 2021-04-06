@@ -10,6 +10,8 @@ const DATA_TARGET = "data-target";
 
 const Tabset = (tabset) => {
   const tabs = tabset.querySelectorAll(SELECTOR_TAB);
+  const firstTab = tabs[0];
+  const lastTab = tabs[tabs.length - 1];
   const panels = tabset.querySelectorAll(SELECTOR_PANEL);
 
   const activateTab = (event) => {
@@ -33,7 +35,53 @@ const Tabset = (tabset) => {
     });
   };
 
-  tabs.forEach((tab) => tab.addEventListener("click", activateTab));
+  const navigateUsingKeyboard = (event) => {
+    const currentTab = event.currentTarget;
+    const currentTabIndex = Array.from(tabs).indexOf(currentTab);
+    const previousTab = tabs[currentTabIndex - 1];
+    const nextTab = tabs[currentTabIndex + 1];
+
+    switch (event.key) {
+      case "ArrowLeft":
+        event.preventDefault();
+        currentTab.setAttribute("tabIndex", "-1");
+        if (currentTab === firstTab) {
+          lastTab.focus();
+          lastTab.removeAttribute("tabIndex");
+        } else {
+          previousTab.focus();
+          previousTab.removeAttribute("tabIndex");
+        }
+        break;
+      case "ArrowRight":
+        currentTab.setAttribute("tabIndex", "-1");
+        if (currentTab === lastTab) {
+          firstTab.focus();
+          firstTab.removeAttribute("tabIndex");
+        } else {
+          nextTab.focus();
+          nextTab.removeAttribute("tabIndex");
+        }
+        break;
+      case "Home":
+        event.preventDefault();
+        currentTab.setAttribute("tabIndex", "-1");
+        firstTab.focus();
+        firstTab.removeAttribute("tabIndex");
+        break;
+      case "End":
+        event.preventDefault();
+        currentTab.setAttribute("tabIndex", "-1");
+        lastTab.focus();
+        lastTab.removeAttribute("tabIndex");
+        break;
+    }
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", activateTab);
+    tab.addEventListener("keydown", navigateUsingKeyboard);
+  });
 };
 
 const tabsets = document.querySelectorAll(SELECTOR_TABSET);
