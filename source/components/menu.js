@@ -23,6 +23,7 @@ const Menu = (menu) => {
 
     if (!isExpanded) {
       document.addEventListener("click", hideOnOutsideClick);
+      document.addEventListener("keydown", hideOnEscape);
       trigger.addEventListener("keydown", hideOnTab);
       menu.addEventListener("keydown", hideOnTab);
       links.forEach((link) => {
@@ -30,6 +31,7 @@ const Menu = (menu) => {
       });
     } else {
       document.removeEventListener("click", hideOnOutsideClick);
+      document.removeEventListener("keydown", hideOnEscape);
       trigger.removeEventListener("keydown", hideOnTab);
       menu.removeEventListener("keydown", hideOnTab);
     }
@@ -71,6 +73,12 @@ const Menu = (menu) => {
 
   const hideOnOutsideClick = (event) => {
     if (!trigger.contains(event.target) && !menu.contains(event.target)) {
+      toggle();
+    }
+  };
+
+  const hideOnEscape = (event) => {
+    if (event.key === "Escape") {
       toggle();
     }
   };
