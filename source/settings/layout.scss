@@ -23,15 +23,6 @@ $grid-regular: (
     gap: $gap-large,
   ),
 );
-$grid-auto: (
-  default: (
-    column-min-width: 160px,
-    gap: $gap-regular,
-  ),
-  laptop: (
-    gap: $gap-large,
-  ),
-);
 
 // Z-index
 
