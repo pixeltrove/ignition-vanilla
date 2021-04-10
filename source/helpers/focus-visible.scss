@@ -7,8 +7,6 @@
   @if ($style == "default") {
     outline: 3px solid $color-focal-regular;
     outline-offset: 3px;
-  } @else if ($style == "none") {
-    outline: 0;
   } @else {
     @error "Invalid visible focus style. Check spelling or review helper definition.";
   }

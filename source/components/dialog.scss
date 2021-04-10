@@ -13,7 +13,7 @@
   background-color: $color-white-regular;
 
   &:focus-visible {
-    @include focus-visible(none);
+    outline: 0;
   }
 
   &-heading {
