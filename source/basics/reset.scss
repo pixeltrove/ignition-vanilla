@@ -24,11 +24,8 @@
   outline: 0;
 }
 
-[contenteditable],
-[tabindex]:not([tabindex^="-"]) {
-  &:focus-visible {
-    @include focus-visible(default);
-  }
+[contenteditable]:focus-visible {
+  @include focus-visible(default);
 }
 
 // Body
