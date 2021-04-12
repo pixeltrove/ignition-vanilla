@@ -24,10 +24,6 @@
   outline: 0;
 }
 
-[contenteditable]:focus-visible {
-  @include focus-visible(default);
-}
-
 // Body
 
 body {
@@ -224,8 +220,11 @@ button,
 }
 
 [type="search"] {
-  outline-offset: -2px;
   -webkit-appearance: textfield;
+
+  &:focus {
+    outline-offset: -2px;
+  }
 
   &::-webkit-search-decoration {
     -webkit-appearance: none;
@@ -346,4 +345,12 @@ dialog {
 summary {
   display: list-item;
   cursor: pointer;
+}
+
+// Editable content
+
+[contenteditable] {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }
