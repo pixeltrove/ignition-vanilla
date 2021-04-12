@@ -24,10 +24,6 @@
   outline: 0;
 }
 
-[contenteditable]:focus-visible {
-  @include focus-visible(default);
-}
-
 // Body
 
 body {
@@ -346,4 +342,12 @@ dialog {
 summary {
   display: list-item;
   cursor: pointer;
+}
+
+// Editable content
+
+[contenteditable] {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }
