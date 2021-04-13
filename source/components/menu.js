@@ -11,8 +11,9 @@ const Menu = (menu) => {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
   const links = menu.querySelectorAll(SELECTOR_LINK);
-  const firstLink = links[0];
-  const lastLink = links[links.length - 1];
+  const linksArray = Array.from(links);
+  const firstLink = linksArray[0];
+  const lastLink = linksArray[linksArray.length - 1];
 
   const toggle = () => {
     const isExpanded = menu.classList.contains(CLASS_SHOWN);
@@ -39,9 +40,9 @@ const Menu = (menu) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentLink = event.currentTarget;
-    const currentLinkIndex = Array.from(links).indexOf(currentLink);
-    const previousLink = links[currentLinkIndex - 1];
-    const nextLink = links[currentLinkIndex + 1];
+    const currentLinkIndex = linksArray.indexOf(currentLink);
+    const previousLink = linksArray[currentLinkIndex - 1];
+    const nextLink = linksArray[currentLinkIndex + 1];
 
     switch (event.key) {
       case "ArrowUp":

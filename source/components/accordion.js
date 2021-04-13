@@ -9,8 +9,9 @@ const DATA_TARGET = "data-target";
 
 const Accordion = (accordion) => {
   const handles = accordion.querySelectorAll(SELECTOR_HANDLE);
-  const firstHandle = handles[0];
-  const lastHandle = handles[handles.length - 1];
+  const handlesArray = Array.from(handles);
+  const firstHandle = handlesArray[0];
+  const lastHandle = handlesArray[handlesArray.length - 1];
 
   const togglePanel = (event) => {
     const currentHandle = event.currentTarget;
@@ -25,9 +26,9 @@ const Accordion = (accordion) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentHandle = event.currentTarget;
-    const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
-    const previousHandle = handles[currentHandleIndex - 1];
-    const nextHandle = handles[currentHandleIndex + 1];
+    const currentHandleIndex = handlesArray.indexOf(currentHandle);
+    const previousHandle = handlesArray[currentHandleIndex - 1];
+    const nextHandle = handlesArray[currentHandleIndex + 1];
 
     switch (event.key) {
       case "ArrowUp":

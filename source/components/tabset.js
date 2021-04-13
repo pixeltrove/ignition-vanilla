@@ -10,8 +10,9 @@ const DATA_TARGET = "data-target";
 
 const Tabset = (tabset) => {
   const tabs = tabset.querySelectorAll(SELECTOR_TAB);
-  const firstTab = tabs[0];
-  const lastTab = tabs[tabs.length - 1];
+  const tabsArray = Array.from(tabs);
+  const firstTab = tabsArray[0];
+  const lastTab = tabsArray[tabsArray.length - 1];
   const panels = tabset.querySelectorAll(SELECTOR_PANEL);
 
   const activateTab = (event) => {
@@ -37,9 +38,9 @@ const Tabset = (tabset) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentTab = event.currentTarget;
-    const currentTabIndex = Array.from(tabs).indexOf(currentTab);
-    const previousTab = tabs[currentTabIndex - 1];
-    const nextTab = tabs[currentTabIndex + 1];
+    const currentTabIndex = tabsArray.indexOf(currentTab);
+    const previousTab = tabsArray[currentTabIndex - 1];
+    const nextTab = tabsArray[currentTabIndex + 1];
 
     switch (event.key) {
       case "ArrowLeft":
