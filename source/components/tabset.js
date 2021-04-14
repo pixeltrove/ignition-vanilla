@@ -9,10 +9,10 @@ const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
 const Tabset = (tabset) => {
-  const tabs = tabset.querySelectorAll(SELECTOR_TAB);
+  const tabs = Array.from(tabset.querySelectorAll(SELECTOR_TAB));
   const firstTab = tabs[0];
   const lastTab = tabs[tabs.length - 1];
-  const panels = tabset.querySelectorAll(SELECTOR_PANEL);
+  const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
   const activateTab = (event) => {
     const currentTab = event.currentTarget;
@@ -37,7 +37,7 @@ const Tabset = (tabset) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentTab = event.currentTarget;
-    const currentTabIndex = Array.from(tabs).indexOf(currentTab);
+    const currentTabIndex = tabs.indexOf(currentTab);
     const previousTab = tabs[currentTabIndex - 1];
     const nextTab = tabs[currentTabIndex + 1];
 
@@ -84,6 +84,6 @@ const Tabset = (tabset) => {
   });
 };
 
-const tabsets = document.querySelectorAll(SELECTOR_TABSET);
+const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
 
 tabsets.forEach((tabset) => Tabset(tabset));
