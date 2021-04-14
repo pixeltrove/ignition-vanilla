@@ -15,7 +15,7 @@ const Accordion = (accordion) => {
   const togglePanel = (event) => {
     const currentHandle = event.currentTarget;
     const panelId = currentHandle.getAttribute(DATA_TARGET);
-    const panel = document.querySelector(`#${panelId}`);
+    const panel = accordion.querySelector(`#${panelId}`);
     const isExpanded = panel.classList.contains(CLASS_SHOWN);
 
     currentHandle.classList.toggle(CLASS_ACTIVATED);
