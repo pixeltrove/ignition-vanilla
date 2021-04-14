@@ -16,10 +16,10 @@ const Accordion = (accordion) => {
     const currentHandle = event.currentTarget;
     const panelId = currentHandle.getAttribute(DATA_TARGET);
     const panel = accordion.querySelector(`#${panelId}`);
-    const isExpanded = panel.classList.contains(CLASS_SHOWN);
+    const isShown = panel.classList.contains(CLASS_SHOWN);
 
     currentHandle.classList.toggle(CLASS_ACTIVATED);
-    currentHandle.setAttribute("aria-expanded", !isExpanded);
+    currentHandle.setAttribute("aria-expanded", !isShown);
     panel.classList.toggle(CLASS_SHOWN);
   };
 

@@ -15,13 +15,13 @@ const Menu = (menu) => {
   const lastLink = links[links.length - 1];
 
   const toggle = () => {
-    const isExpanded = menu.classList.contains(CLASS_SHOWN);
+    const isShown = menu.classList.contains(CLASS_SHOWN);
 
     trigger.classList.toggle(CLASS_ACTIVATED);
-    trigger.setAttribute("aria-expanded", !isExpanded);
+    trigger.setAttribute("aria-expanded", !isShown);
     menu.classList.toggle(CLASS_SHOWN);
 
-    if (!isExpanded) {
+    if (!isShown) {
       document.addEventListener("click", hideOnOutsideClick);
       document.addEventListener("keydown", hideOnEscape);
       trigger.addEventListener("keydown", hideOnTab);
