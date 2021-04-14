@@ -50,7 +50,7 @@ const Dialog = (dialog) => {
   };
 
   const trapFocus = (dialog) => {
-    const focusableElements = dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]");
+    const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
     const firstFocusableElement = focusableElements[0];
     const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
@@ -83,6 +83,6 @@ const Dialog = (dialog) => {
   trigger.addEventListener("click", show);
 };
 
-const dialogs = document.querySelectorAll(SELECTOR_DIALOG);
+const dialogs = Array.from(document.querySelectorAll(SELECTOR_DIALOG));
 
 dialogs.forEach((dialog) => Dialog(dialog));

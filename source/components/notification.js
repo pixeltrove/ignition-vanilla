@@ -14,6 +14,6 @@ const Notification = (notification) => {
   notification.addEventListener("click", dismiss);
 };
 
-const notifications = document.querySelectorAll(SELECTOR_NOTIFICATION);
+const notifications = Array.from(document.querySelectorAll(SELECTOR_NOTIFICATION));
 
 notifications.forEach((notification) => Notification(notification));

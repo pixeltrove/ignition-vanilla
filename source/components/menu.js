@@ -10,7 +10,7 @@ const DATA_TARGET = "data-target";
 const Menu = (menu) => {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
-  const links = menu.querySelectorAll(SELECTOR_LINK);
+  const links = Array.from(menu.querySelectorAll(SELECTOR_LINK));
   const firstLink = links[0];
   const lastLink = links[links.length - 1];
 
@@ -39,7 +39,7 @@ const Menu = (menu) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentLink = event.currentTarget;
-    const currentLinkIndex = Array.from(links).indexOf(currentLink);
+    const currentLinkIndex = links.indexOf(currentLink);
     const previousLink = links[currentLinkIndex - 1];
     const nextLink = links[currentLinkIndex + 1];
 
@@ -85,7 +85,7 @@ const Menu = (menu) => {
 
   const hideOnTab = (event) => {
     if (event.key === "Tab") {
-      const focusableElements = menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])");
+      const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
       const tabBackward = event.shiftKey;
 
@@ -98,6 +98,6 @@ const Menu = (menu) => {
   trigger.addEventListener("click", toggle);
 };
 
-const menus = document.querySelectorAll(SELECTOR_MENU);
+const menus = Array.from(document.querySelectorAll(SELECTOR_MENU));
 
 menus.forEach((menu) => Menu(menu));

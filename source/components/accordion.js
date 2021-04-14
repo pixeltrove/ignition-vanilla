@@ -8,7 +8,7 @@ const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
 const Accordion = (accordion) => {
-  const handles = accordion.querySelectorAll(SELECTOR_HANDLE);
+  const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
   const firstHandle = handles[0];
   const lastHandle = handles[handles.length - 1];
 
@@ -25,7 +25,7 @@ const Accordion = (accordion) => {
 
   const navigateUsingKeyboard = (event) => {
     const currentHandle = event.currentTarget;
-    const currentHandleIndex = Array.from(handles).indexOf(currentHandle);
+    const currentHandleIndex = handles.indexOf(currentHandle);
     const previousHandle = handles[currentHandleIndex - 1];
     const nextHandle = handles[currentHandleIndex + 1];
 
@@ -63,6 +63,6 @@ const Accordion = (accordion) => {
   });
 };
 
-const accordions = document.querySelectorAll(SELECTOR_ACCORDION);
+const accordions = Array.from(document.querySelectorAll(SELECTOR_ACCORDION));
 
 accordions.forEach((accordion) => Accordion(accordion));
