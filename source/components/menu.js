@@ -7,14 +7,14 @@ const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
-const Menu = (menu) => {
+function Menu(menu) {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
   const links = Array.from(menu.querySelectorAll(SELECTOR_LINK));
   const firstLink = links[0];
   const lastLink = links[links.length - 1];
 
-  const toggle = () => {
+  function toggle() {
     const isShown = menu.classList.contains(CLASS_SHOWN);
 
     trigger.classList.toggle(CLASS_ACTIVATED);
@@ -35,9 +35,9 @@ const Menu = (menu) => {
       trigger.removeEventListener("keydown", hideOnTab);
       menu.removeEventListener("keydown", hideOnTab);
     }
-  };
+  }
 
-  const navigateUsingKeyboard = (event) => {
+  function navigateUsingKeyboard(event) {
     const currentLink = event.currentTarget;
     const currentLinkIndex = links.indexOf(currentLink);
     const previousLink = links[currentLinkIndex - 1];
@@ -69,21 +69,21 @@ const Menu = (menu) => {
         lastLink.focus();
         break;
     }
-  };
+  }
 
-  const hideOnOutsideClick = (event) => {
+  function hideOnOutsideClick(event) {
     if (!trigger.contains(event.target) && !menu.contains(event.target)) {
       toggle();
     }
-  };
+  }
 
-  const hideOnEscape = (event) => {
+  function hideOnEscape(event) {
     if (event.key === "Escape") {
       toggle();
     }
-  };
+  }
 
-  const hideOnTab = (event) => {
+  function hideOnTab(event) {
     if (event.key === "Tab") {
       const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
       const lastFocusableElement = focusableElements[focusableElements.length - 1];
@@ -93,10 +93,10 @@ const Menu = (menu) => {
         toggle();
       }
     }
-  };
+  }
 
   trigger.addEventListener("click", toggle);
-};
+}
 
 const menus = Array.from(document.querySelectorAll(SELECTOR_MENU));
 

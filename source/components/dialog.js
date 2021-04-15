@@ -8,12 +8,12 @@ const CLASS_SHOWN = "is-shown";
 const DATA_HIDE = "data-hide";
 const DATA_TARGET = "data-target";
 
-const Dialog = (dialog) => {
+function Dialog(dialog) {
   const dialogId = dialog.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${dialogId}"]`);
   const backdrop = dialog.closest(SELECTOR_BACKDROP);
 
-  const show = () => {
+  function show() {
     dialog.addEventListener("click", hide);
     backdrop.addEventListener("click", hide);
     document.addEventListener("keyup", hide);
@@ -21,9 +21,9 @@ const Dialog = (dialog) => {
     backdrop.classList.add(CLASS_SHOWN);
     toggleScroll();
     trapFocus(dialog);
-  };
+  }
 
-  const hide = (event) => {
+  function hide(event) {
     if ((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
       dialog.removeEventListener("click", hide);
       backdrop.removeEventListener("click", hide);
@@ -32,9 +32,9 @@ const Dialog = (dialog) => {
       backdrop.classList.remove(CLASS_SHOWN);
       toggleScroll();
     }
-  };
+  }
 
-  const toggleScroll = () => {
+  function toggleScroll() {
     if (window.innerHeight < document.body.scrollHeight) {
       const scrollPosition = Math.abs(parseInt(document.body.style.top)) || window.scrollY;
 
@@ -47,14 +47,14 @@ const Dialog = (dialog) => {
         document.body.style.top = -scrollPosition + "px";
       }
     }
-  };
+  }
 
-  const trapFocus = (dialog) => {
+  function trapFocus(dialog) {
     const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
     const firstFocusableElement = focusableElements[0];
     const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-    const cycleFocus = (event) => {
+    function cycleFocus(event) {
       if (event.key === "Tab") {
         const tabBackward = event.shiftKey;
 
@@ -72,16 +72,16 @@ const Dialog = (dialog) => {
           }
         }
       }
-    };
+    }
 
     dialog.addEventListener("keydown", cycleFocus);
 
     dialog.setAttribute("tabindex", -1);
     dialog.focus();
-  };
+  }
 
   trigger.addEventListener("click", show);
-};
+}
 
 const dialogs = Array.from(document.querySelectorAll(SELECTOR_DIALOG));
 

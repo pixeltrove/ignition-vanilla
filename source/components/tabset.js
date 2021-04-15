@@ -8,13 +8,13 @@ const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
-const Tabset = (tabset) => {
+function Tabset(tabset) {
   const tabs = Array.from(tabset.querySelectorAll(SELECTOR_TAB));
   const firstTab = tabs[0];
   const lastTab = tabs[tabs.length - 1];
   const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
-  const activateTab = (event) => {
+  function activateTab(event) {
     const currentTab = event.currentTarget;
     const panelId = currentTab.getAttribute(DATA_TARGET);
 
@@ -33,9 +33,9 @@ const Tabset = (tabset) => {
         panel.classList.remove(CLASS_SHOWN);
       }
     });
-  };
+  }
 
-  const navigateUsingKeyboard = (event) => {
+  function navigateUsingKeyboard(event) {
     const currentTab = event.currentTarget;
     const currentTabIndex = tabs.indexOf(currentTab);
     const previousTab = tabs[currentTabIndex - 1];
@@ -76,13 +76,13 @@ const Tabset = (tabset) => {
         lastTab.removeAttribute("tabIndex");
         break;
     }
-  };
+  }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", activateTab);
     tab.addEventListener("keydown", navigateUsingKeyboard);
   });
-};
+}
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
 
