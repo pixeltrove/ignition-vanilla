@@ -32,19 +32,11 @@ const Accordion = (accordion) => {
     switch (event.key) {
       case "ArrowUp":
         event.preventDefault();
-        if (currentHandle === firstHandle) {
-          lastHandle.focus();
-        } else {
-          previousHandle.focus();
-        }
+        currentHandle === firstHandle ? lastHandle.focus() : previousHandle.focus();
         break;
       case "ArrowDown":
         event.preventDefault();
-        if (currentHandle === lastHandle) {
-          firstHandle.focus();
-        } else {
-          nextHandle.focus();
-        }
+        currentHandle === lastHandle ? firstHandle.focus() : nextHandle.focus();
         break;
       case "Home":
         event.preventDefault();
