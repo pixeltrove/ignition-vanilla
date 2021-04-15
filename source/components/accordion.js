@@ -7,12 +7,12 @@ const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
-const Accordion = (accordion) => {
+function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
   const firstHandle = handles[0];
   const lastHandle = handles[handles.length - 1];
 
-  const togglePanel = (event) => {
+  function togglePanel(event) {
     const currentHandle = event.currentTarget;
     const panelId = currentHandle.getAttribute(DATA_TARGET);
     const panel = accordion.querySelector(`#${panelId}`);
@@ -21,9 +21,9 @@ const Accordion = (accordion) => {
     currentHandle.classList.toggle(CLASS_ACTIVATED);
     currentHandle.setAttribute("aria-expanded", !isShown);
     panel.classList.toggle(CLASS_SHOWN);
-  };
+  }
 
-  const navigateUsingKeyboard = (event) => {
+  function navigateUsingKeyboard(event) {
     const currentHandle = event.currentTarget;
     const currentHandleIndex = handles.indexOf(currentHandle);
     const previousHandle = handles[currentHandleIndex - 1];
@@ -55,13 +55,13 @@ const Accordion = (accordion) => {
         lastHandle.focus();
         break;
     }
-  };
+  }
 
   handles.forEach((handle) => {
     handle.addEventListener("click", togglePanel);
     handle.addEventListener("keydown", navigateUsingKeyboard);
   });
-};
+}
 
 const accordions = Array.from(document.querySelectorAll(SELECTOR_ACCORDION));
 
