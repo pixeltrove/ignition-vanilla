@@ -46,19 +46,11 @@ const Menu = (menu) => {
     switch (event.key) {
       case "ArrowUp":
         event.preventDefault();
-        if (currentLink === firstLink) {
-          lastLink.focus();
-        } else {
-          previousLink.focus();
-        }
+        currentLink === firstLink ? lastLink.focus() : previousLink.focus();
         break;
       case "ArrowDown":
         event.preventDefault();
-        if (currentLink === lastLink) {
-          firstLink.focus();
-        } else {
-          nextLink.focus();
-        }
+        currentLink === lastLink ? firstLink.focus() : nextLink.focus();
         break;
       case "Home":
         event.preventDefault();
