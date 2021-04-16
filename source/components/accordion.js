@@ -23,9 +23,11 @@ function Accordion(accordion) {
   }
 
   function navigateUsingKeyboard(event) {
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
+
     handleIndex = handles.indexOf(event.currentTarget);
 
-    if (["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
+    if (navigationKeys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
