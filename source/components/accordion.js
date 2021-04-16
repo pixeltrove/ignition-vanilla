@@ -23,27 +23,29 @@ function Accordion(accordion) {
 
   function navigateUsingKeyboard(event) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
-    let handleIndex = handles.indexOf(event.currentTarget);
+    const currentHandleIndex = handles.indexOf(event.currentTarget);
+    const lastHandleIndex = handles.length - 1;
+    let targetHandleIndex = 0;
 
     if (navigationKeys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
         case "ArrowUp":
-          handleIndex = handleIndex === 0 ? handles.length - 1 : handleIndex - 1;
+          targetHandleIndex = currentHandleIndex === 0 ? lastHandleIndex : currentHandleIndex - 1;
           break;
         case "ArrowDown":
-          handleIndex = handleIndex === handles.length - 1 ? 0 : handleIndex + 1;
+          targetHandleIndex = currentHandleIndex === lastHandleIndex ? 0 : currentHandleIndex + 1;
           break;
         case "Home":
-          handleIndex = 0;
+          targetHandleIndex = 0;
           break;
         case "End":
-          handleIndex = handles.length - 1;
+          targetHandleIndex = lastHandleIndex;
           break;
       }
 
-      handles[handleIndex].focus();
+      handles[targetHandleIndex].focus();
     }
   }
 
