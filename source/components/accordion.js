@@ -9,7 +9,6 @@ const DATA_TARGET = "data-target";
 
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
-  let handleIndex = 0;
 
   function togglePanel(event) {
     const currentHandle = event.currentTarget;
@@ -24,8 +23,7 @@ function Accordion(accordion) {
 
   function navigateUsingKeyboard(event) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
-
-    handleIndex = handles.indexOf(event.currentTarget);
+    let handleIndex = handles.indexOf(event.currentTarget);
 
     if (navigationKeys.includes(event.key)) {
       event.preventDefault();
