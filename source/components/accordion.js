@@ -9,8 +9,7 @@ const DATA_TARGET = "data-target";
 
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
-  const firstHandle = handles[0];
-  const lastHandle = handles[handles.length - 1];
+  let handleIndex = 0;
 
   function togglePanel(event) {
     const currentHandle = event.currentTarget;
@@ -24,36 +23,27 @@ function Accordion(accordion) {
   }
 
   function navigateUsingKeyboard(event) {
-    const currentHandle = event.currentTarget;
-    const currentHandleIndex = handles.indexOf(currentHandle);
-    const previousHandle = handles[currentHandleIndex - 1];
-    const nextHandle = handles[currentHandleIndex + 1];
+    handleIndex = handles.indexOf(event.currentTarget);
 
-    switch (event.key) {
-      case "ArrowUp":
-        event.preventDefault();
-        if (currentHandle === firstHandle) {
-          lastHandle.focus();
-        } else {
-          previousHandle.focus();
-        }
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        if (currentHandle === lastHandle) {
-          firstHandle.focus();
-        } else {
-          nextHandle.focus();
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        firstHandle.focus();
-        break;
-      case "End":
-        event.preventDefault();
-        lastHandle.focus();
-        break;
+    if (["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowUp":
+          handleIndex = handleIndex === 0 ? handles.length - 1 : handleIndex - 1;
+          break;
+        case "ArrowDown":
+          handleIndex = handleIndex === handles.length - 1 ? 0 : handleIndex + 1;
+          break;
+        case "Home":
+          handleIndex = 0;
+          break;
+        case "End":
+          handleIndex = handles.length - 1;
+          break;
+      }
+
+      handles[handleIndex].focus();
     }
   }
 
