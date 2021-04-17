@@ -11,8 +11,6 @@ function Menu(menu) {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
   const links = Array.from(menu.querySelectorAll(SELECTOR_LINK));
-  const firstLink = links[0];
-  const lastLink = links[links.length - 1];
 
   function toggle() {
     const isShown = menu.classList.contains(CLASS_SHOWN);
@@ -38,36 +36,30 @@ function Menu(menu) {
   }
 
   function navigateUsingKeyboard(event) {
-    const currentLink = event.currentTarget;
-    const currentLinkIndex = links.indexOf(currentLink);
-    const previousLink = links[currentLinkIndex - 1];
-    const nextLink = links[currentLinkIndex + 1];
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
+    const currentLinkIndex = links.indexOf(event.currentTarget);
+    const lastLinkIndex = links.length - 1;
+    let targetLinkIndex = 0;
 
-    switch (event.key) {
-      case "ArrowUp":
-        event.preventDefault();
-        if (currentLink === firstLink) {
-          lastLink.focus();
-        } else {
-          previousLink.focus();
-        }
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        if (currentLink === lastLink) {
-          firstLink.focus();
-        } else {
-          nextLink.focus();
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        firstLink.focus();
-        break;
-      case "End":
-        event.preventDefault();
-        lastLink.focus();
-        break;
+    if (navigationKeys.includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowUp":
+          targetLinkIndex = currentLinkIndex === 0 ? lastLinkIndex : currentLinkIndex - 1;
+          break;
+        case "ArrowDown":
+          targetLinkIndex = currentLinkIndex === lastLinkIndex ? 0 : currentLinkIndex + 1;
+          break;
+        case "Home":
+          targetLinkIndex = 0;
+          break;
+        case "End":
+          targetLinkIndex = lastLinkIndex;
+          break;
+      }
+
+      links[targetLinkIndex].focus();
     }
   }
 
