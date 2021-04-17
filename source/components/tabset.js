@@ -10,8 +10,6 @@ const DATA_TARGET = "data-target";
 
 function Tabset(tabset) {
   const tabs = Array.from(tabset.querySelectorAll(SELECTOR_TAB));
-  const firstTab = tabs[0];
-  const lastTab = tabs[tabs.length - 1];
   const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
   function activateTab(event) {
@@ -36,45 +34,32 @@ function Tabset(tabset) {
   }
 
   function navigateUsingKeyboard(event) {
-    const currentTab = event.currentTarget;
-    const currentTabIndex = tabs.indexOf(currentTab);
-    const previousTab = tabs[currentTabIndex - 1];
-    const nextTab = tabs[currentTabIndex + 1];
+    const navigationKeys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+    const currentTabIndex = tabs.indexOf(event.currentTarget);
+    const lastTabIndex = tabs.length - 1;
+    let targetTabIndex = 0;
 
-    switch (event.key) {
-      case "ArrowLeft":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        if (currentTab === firstTab) {
-          lastTab.focus();
-          lastTab.removeAttribute("tabIndex");
-        } else {
-          previousTab.focus();
-          previousTab.removeAttribute("tabIndex");
-        }
-        break;
-      case "ArrowRight":
-        currentTab.setAttribute("tabIndex", "-1");
-        if (currentTab === lastTab) {
-          firstTab.focus();
-          firstTab.removeAttribute("tabIndex");
-        } else {
-          nextTab.focus();
-          nextTab.removeAttribute("tabIndex");
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        firstTab.focus();
-        firstTab.removeAttribute("tabIndex");
-        break;
-      case "End":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        lastTab.focus();
-        lastTab.removeAttribute("tabIndex");
-        break;
+    if (navigationKeys.includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowLeft":
+          targetTabIndex = currentTabIndex === 0 ? lastTabIndex : currentTabIndex - 1;
+          break;
+        case "ArrowRight":
+          targetTabIndex = currentTabIndex === lastTabIndex ? 0 : currentTabIndex + 1;
+          break;
+        case "Home":
+          targetTabIndex = 0;
+          break;
+        case "End":
+          targetTabIndex = lastTabIndex;
+          break;
+      }
+
+      tabs[currentTabIndex].removeAttribute("tabIndex");
+      tabs[targetTabIndex].setAttribute("tabIndex", "-1");
+      tabs[targetTabIndex].focus();
     }
   }
 
