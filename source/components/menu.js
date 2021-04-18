@@ -39,27 +39,27 @@ function Menu(menu) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
     const currentIndex = links.indexOf(event.currentTarget);
     const lastIndex = links.length - 1;
-    let nextIndex = 0;
+    let upcomingIndex = 0;
 
     if (navigationKeys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
         case "ArrowUp":
-          nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
           break;
         case "ArrowDown":
-          nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
           break;
         case "Home":
-          nextIndex = 0;
+          upcomingIndex = 0;
           break;
         case "End":
-          nextIndex = lastIndex;
+          upcomingIndex = lastIndex;
           break;
       }
 
-      links[nextIndex].focus();
+      links[upcomingIndex].focus();
     }
   }
 

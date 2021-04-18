@@ -37,29 +37,29 @@ function Tabset(tabset) {
     const navigationKeys = ["ArrowLeft", "ArrowRight", "Home", "End"];
     const currentIndex = tabs.indexOf(event.currentTarget);
     const lastIndex = tabs.length - 1;
-    let nextIndex = 0;
+    let upcomingIndex = 0;
 
     if (navigationKeys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
         case "ArrowLeft":
-          nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
           break;
         case "ArrowRight":
-          nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
           break;
         case "Home":
-          nextIndex = 0;
+          upcomingIndex = 0;
           break;
         case "End":
-          nextIndex = lastIndex;
+          upcomingIndex = lastIndex;
           break;
       }
 
       tabs[currentIndex].removeAttribute("tabIndex");
-      tabs[nextIndex].setAttribute("tabIndex", "-1");
-      tabs[nextIndex].focus();
+      tabs[upcomingIndex].setAttribute("tabIndex", "-1");
+      tabs[upcomingIndex].focus();
     }
   }
 
