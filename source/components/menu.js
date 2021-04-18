@@ -37,29 +37,29 @@ function Menu(menu) {
 
   function navigateUsingKeyboard(event) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
-    const currentLinkIndex = links.indexOf(event.currentTarget);
-    const lastLinkIndex = links.length - 1;
-    let targetLinkIndex = 0;
+    const currentIndex = links.indexOf(event.currentTarget);
+    const lastIndex = links.length - 1;
+    let nextIndex = 0;
 
     if (navigationKeys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
         case "ArrowUp":
-          targetLinkIndex = currentLinkIndex === 0 ? lastLinkIndex : currentLinkIndex - 1;
+          nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
           break;
         case "ArrowDown":
-          targetLinkIndex = currentLinkIndex === lastLinkIndex ? 0 : currentLinkIndex + 1;
+          nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
           break;
         case "Home":
-          targetLinkIndex = 0;
+          nextIndex = 0;
           break;
         case "End":
-          targetLinkIndex = lastLinkIndex;
+          nextIndex = lastIndex;
           break;
       }
 
-      links[targetLinkIndex].focus();
+      links[nextIndex].focus();
     }
   }
 
