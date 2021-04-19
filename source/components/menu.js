@@ -36,12 +36,12 @@ function Menu(menu) {
   }
 
   function moveFocus(event) {
-    const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
+    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
     const currentIndex = links.indexOf(event.currentTarget);
     const lastIndex = links.length - 1;
     let upcomingIndex = 0;
 
-    if (navigationKeys.includes(event.key)) {
+    if (keys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {

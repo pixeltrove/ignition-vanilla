@@ -34,12 +34,12 @@ function Tabset(tabset) {
   }
 
   function moveFocus(event) {
-    const navigationKeys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
     const currentIndex = tabs.indexOf(event.currentTarget);
     const lastIndex = tabs.length - 1;
     let upcomingIndex = 0;
 
-    if (navigationKeys.includes(event.key)) {
+    if (keys.includes(event.key)) {
       event.preventDefault();
 
       switch (event.key) {
