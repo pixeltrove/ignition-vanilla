@@ -11,8 +11,6 @@ function Menu(menu) {
   const menuId = menu.id;
   const trigger = document.querySelector(`[${DATA_TARGET}="${menuId}"]`);
   const links = Array.from(menu.querySelectorAll(SELECTOR_LINK));
-  const firstLink = links[0];
-  const lastLink = links[links.length - 1];
 
   function toggle() {
     const isShown = menu.classList.contains(CLASS_SHOWN);
@@ -27,7 +25,7 @@ function Menu(menu) {
       trigger.addEventListener("keydown", hideOnTab);
       menu.addEventListener("keydown", hideOnTab);
       links.forEach((link) => {
-        link.addEventListener("keydown", navigateUsingKeyboard);
+        link.addEventListener("keydown", moveFocus);
       });
     } else {
       document.removeEventListener("click", hideOnOutsideClick);
@@ -37,37 +35,31 @@ function Menu(menu) {
     }
   }
 
-  function navigateUsingKeyboard(event) {
-    const currentLink = event.currentTarget;
-    const currentLinkIndex = links.indexOf(currentLink);
-    const previousLink = links[currentLinkIndex - 1];
-    const nextLink = links[currentLinkIndex + 1];
+  function moveFocus(event) {
+    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
+    const currentIndex = links.indexOf(event.currentTarget);
+    const lastIndex = links.length - 1;
+    let upcomingIndex = 0;
 
-    switch (event.key) {
-      case "ArrowUp":
-        event.preventDefault();
-        if (currentLink === firstLink) {
-          lastLink.focus();
-        } else {
-          previousLink.focus();
-        }
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        if (currentLink === lastLink) {
-          firstLink.focus();
-        } else {
-          nextLink.focus();
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        firstLink.focus();
-        break;
-      case "End":
-        event.preventDefault();
-        lastLink.focus();
-        break;
+    if (keys.includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowUp":
+          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+          break;
+        case "ArrowDown":
+          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+          break;
+        case "Home":
+          upcomingIndex = 0;
+          break;
+        case "End":
+          upcomingIndex = lastIndex;
+          break;
+      }
+
+      links[upcomingIndex].focus();
     }
   }
 

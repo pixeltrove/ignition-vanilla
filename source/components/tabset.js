@@ -10,8 +10,6 @@ const DATA_TARGET = "data-target";
 
 function Tabset(tabset) {
   const tabs = Array.from(tabset.querySelectorAll(SELECTOR_TAB));
-  const firstTab = tabs[0];
-  const lastTab = tabs[tabs.length - 1];
   const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
   function activateTab(event) {
@@ -35,52 +33,39 @@ function Tabset(tabset) {
     });
   }
 
-  function navigateUsingKeyboard(event) {
-    const currentTab = event.currentTarget;
-    const currentTabIndex = tabs.indexOf(currentTab);
-    const previousTab = tabs[currentTabIndex - 1];
-    const nextTab = tabs[currentTabIndex + 1];
+  function moveFocus(event) {
+    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+    const currentIndex = tabs.indexOf(event.currentTarget);
+    const lastIndex = tabs.length - 1;
+    let upcomingIndex = 0;
 
-    switch (event.key) {
-      case "ArrowLeft":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        if (currentTab === firstTab) {
-          lastTab.focus();
-          lastTab.removeAttribute("tabIndex");
-        } else {
-          previousTab.focus();
-          previousTab.removeAttribute("tabIndex");
-        }
-        break;
-      case "ArrowRight":
-        currentTab.setAttribute("tabIndex", "-1");
-        if (currentTab === lastTab) {
-          firstTab.focus();
-          firstTab.removeAttribute("tabIndex");
-        } else {
-          nextTab.focus();
-          nextTab.removeAttribute("tabIndex");
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        firstTab.focus();
-        firstTab.removeAttribute("tabIndex");
-        break;
-      case "End":
-        event.preventDefault();
-        currentTab.setAttribute("tabIndex", "-1");
-        lastTab.focus();
-        lastTab.removeAttribute("tabIndex");
-        break;
+    if (keys.includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowLeft":
+          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+          break;
+        case "ArrowRight":
+          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+          break;
+        case "Home":
+          upcomingIndex = 0;
+          break;
+        case "End":
+          upcomingIndex = lastIndex;
+          break;
+      }
+
+      tabs[currentIndex].removeAttribute("tabIndex");
+      tabs[upcomingIndex].setAttribute("tabIndex", "-1");
+      tabs[upcomingIndex].focus();
     }
   }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", activateTab);
-    tab.addEventListener("keydown", navigateUsingKeyboard);
+    tab.addEventListener("keydown", moveFocus);
   });
 }
 

@@ -9,8 +9,6 @@ const DATA_TARGET = "data-target";
 
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
-  const firstHandle = handles[0];
-  const lastHandle = handles[handles.length - 1];
 
   function togglePanel(event) {
     const currentHandle = event.currentTarget;
@@ -23,43 +21,37 @@ function Accordion(accordion) {
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function navigateUsingKeyboard(event) {
-    const currentHandle = event.currentTarget;
-    const currentHandleIndex = handles.indexOf(currentHandle);
-    const previousHandle = handles[currentHandleIndex - 1];
-    const nextHandle = handles[currentHandleIndex + 1];
+  function moveFocus(event) {
+    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
+    const currentIndex = handles.indexOf(event.currentTarget);
+    const lastIndex = handles.length - 1;
+    let upcomingIndex = 0;
 
-    switch (event.key) {
-      case "ArrowUp":
-        event.preventDefault();
-        if (currentHandle === firstHandle) {
-          lastHandle.focus();
-        } else {
-          previousHandle.focus();
-        }
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        if (currentHandle === lastHandle) {
-          firstHandle.focus();
-        } else {
-          nextHandle.focus();
-        }
-        break;
-      case "Home":
-        event.preventDefault();
-        firstHandle.focus();
-        break;
-      case "End":
-        event.preventDefault();
-        lastHandle.focus();
-        break;
+    if (keys.includes(event.key)) {
+      event.preventDefault();
+
+      switch (event.key) {
+        case "ArrowUp":
+          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+          break;
+        case "ArrowDown":
+          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+          break;
+        case "Home":
+          upcomingIndex = 0;
+          break;
+        case "End":
+          upcomingIndex = lastIndex;
+          break;
+      }
+
+      handles[upcomingIndex].focus();
     }
   }
 
   handles.forEach((handle) => {
     handle.addEventListener("click", togglePanel);
-    handle.addEventListener("keydown", navigateUsingKeyboard);
+    handle.addEventListener("keydown", moveFocus);
   });
 }
 
