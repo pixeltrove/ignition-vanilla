@@ -25,7 +25,7 @@ function Menu(menu) {
       trigger.addEventListener("keydown", hideOnTab);
       menu.addEventListener("keydown", hideOnTab);
       links.forEach((link) => {
-        link.addEventListener("keydown", navigateUsingKeyboard);
+        link.addEventListener("keydown", moveFocus);
       });
     } else {
       document.removeEventListener("click", hideOnOutsideClick);
@@ -35,7 +35,7 @@ function Menu(menu) {
     }
   }
 
-  function navigateUsingKeyboard(event) {
+  function moveFocus(event) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
     const currentIndex = links.indexOf(event.currentTarget);
     const lastIndex = links.length - 1;

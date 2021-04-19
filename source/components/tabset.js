@@ -33,7 +33,7 @@ function Tabset(tabset) {
     });
   }
 
-  function navigateUsingKeyboard(event) {
+  function moveFocus(event) {
     const navigationKeys = ["ArrowLeft", "ArrowRight", "Home", "End"];
     const currentIndex = tabs.indexOf(event.currentTarget);
     const lastIndex = tabs.length - 1;
@@ -65,7 +65,7 @@ function Tabset(tabset) {
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", activateTab);
-    tab.addEventListener("keydown", navigateUsingKeyboard);
+    tab.addEventListener("keydown", moveFocus);
   });
 }
 

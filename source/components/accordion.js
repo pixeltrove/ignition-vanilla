@@ -21,7 +21,7 @@ function Accordion(accordion) {
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function navigateUsingKeyboard(event) {
+  function moveFocus(event) {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
     const currentIndex = handles.indexOf(event.currentTarget);
     const lastIndex = handles.length - 1;
@@ -51,7 +51,7 @@ function Accordion(accordion) {
 
   handles.forEach((handle) => {
     handle.addEventListener("click", togglePanel);
-    handle.addEventListener("keydown", navigateUsingKeyboard);
+    handle.addEventListener("keydown", moveFocus);
   });
 }
 
