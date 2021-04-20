@@ -1,6 +1,8 @@
 // MENU
 // -----------------------------------------------------------------------------
 
+import moveFocus from "../helpers/move-focus.js";
+
 const SELECTOR_MENU = ".menu";
 const SELECTOR_LINK = ".menu-link";
 const CLASS_ACTIVATED = "is-activated";
@@ -35,34 +37,6 @@ function Menu(menu) {
     }
   }
 
-  function moveFocus(event) {
-    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
-    const currentIndex = links.indexOf(event.currentTarget);
-    const lastIndex = links.length - 1;
-    let upcomingIndex = 0;
-
-    if (keys.includes(event.key)) {
-      event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowUp":
-          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
-          break;
-        case "ArrowDown":
-          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
-          break;
-        case "Home":
-          upcomingIndex = 0;
-          break;
-        case "End":
-          upcomingIndex = lastIndex;
-          break;
-      }
-
-      links[upcomingIndex].focus();
-    }
-  }
-
   function hideOnOutsideClick(event) {
     if (!trigger.contains(event.target) && !menu.contains(event.target)) {
       toggle();
@@ -88,6 +62,8 @@ function Menu(menu) {
   }
 
   trigger.addEventListener("click", toggle);
+
+  moveFocus(menu, links, "vertical");
 }
 
 const menus = Array.from(document.querySelectorAll(SELECTOR_MENU));

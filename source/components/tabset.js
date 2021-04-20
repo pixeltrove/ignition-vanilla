@@ -1,6 +1,8 @@
 // TABSET
 // -----------------------------------------------------------------------------
 
+import moveFocus from "../helpers/move-focus.js";
+
 const SELECTOR_TABSET = ".tabset";
 const SELECTOR_TAB = ".tabset-tab";
 const SELECTOR_PANEL = ".tabset-panel";
@@ -33,40 +35,12 @@ function Tabset(tabset) {
     });
   }
 
-  function moveFocus(event) {
-    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
-    const currentIndex = tabs.indexOf(event.currentTarget);
-    const lastIndex = tabs.length - 1;
-    let upcomingIndex = 0;
-
-    if (keys.includes(event.key)) {
-      event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowLeft":
-          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
-          break;
-        case "ArrowRight":
-          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
-          break;
-        case "Home":
-          upcomingIndex = 0;
-          break;
-        case "End":
-          upcomingIndex = lastIndex;
-          break;
-      }
-
-      tabs[currentIndex].removeAttribute("tabIndex");
-      tabs[upcomingIndex].setAttribute("tabIndex", "-1");
-      tabs[upcomingIndex].focus();
-    }
-  }
-
   tabs.forEach((tab) => {
     tab.addEventListener("click", activateTab);
     tab.addEventListener("keydown", moveFocus);
   });
+
+  moveFocus(tabset, tabs, "horizontal");
 }
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
