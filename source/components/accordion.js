@@ -50,13 +50,15 @@ function Accordion(accordion) {
   }
 
   function manageClick(event) {
-    if (!event.target.closest(SELECTOR_HANDLE)) return;
-    togglePanel(event);
+    if (event.target.closest(SELECTOR_HANDLE)) {
+      togglePanel(event);
+    }
   }
 
   function manageKeydown(event) {
-    if (!event.target.closest(SELECTOR_HANDLE)) return;
-    moveFocus(event);
+    if (event.target.closest(SELECTOR_HANDLE)) {
+      moveFocus(event);
+    }
   }
 
   accordion.addEventListener("click", manageClick);
