@@ -13,7 +13,7 @@ function Tabset(tabset) {
   const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
   function activateTab(event) {
-    const currentTab = event.currentTarget;
+    const currentTab = event.target;
     const panelId = currentTab.getAttribute(DATA_TARGET);
 
     tabs.forEach((tab) => {
@@ -35,7 +35,7 @@ function Tabset(tabset) {
 
   function moveFocus(event) {
     const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
-    const currentIndex = tabs.indexOf(event.currentTarget);
+    const currentIndex = tabs.indexOf(event.target);
     const lastIndex = tabs.length - 1;
     let upcomingIndex = 0;
 
@@ -63,10 +63,20 @@ function Tabset(tabset) {
     }
   }
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", activateTab);
-    tab.addEventListener("keydown", moveFocus);
-  });
+  function manageClick(event) {
+    if (event.target.closest(SELECTOR_TAB)) {
+      activateTab(event);
+    }
+  }
+
+  function manageKeydown(event) {
+    if (event.target.closest(SELECTOR_TAB)) {
+      moveFocus(event);
+    }
+  }
+
+  tabset.addEventListener("click", manageClick);
+  tabset.addEventListener("keydown", manageKeydown);
 }
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
