@@ -10,14 +10,13 @@ const DATA_TARGET = "data-target";
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
 
-  function togglePanel(event) {
-    const currentHandle = event.target;
-    const panelId = currentHandle.getAttribute(DATA_TARGET);
+  function togglePanel(handle) {
+    const panelId = handle.getAttribute(DATA_TARGET);
     const panel = document.querySelector(`#${panelId}`);
     const isShown = panel.classList.contains(CLASS_SHOWN);
 
-    currentHandle.classList.toggle(CLASS_ACTIVATED);
-    currentHandle.setAttribute("aria-expanded", !isShown);
+    handle.classList.toggle(CLASS_ACTIVATED);
+    handle.setAttribute("aria-expanded", !isShown);
     panel.classList.toggle(CLASS_SHOWN);
   }
 
@@ -51,7 +50,7 @@ function Accordion(accordion) {
 
   function manageClick(event) {
     if (event.target.closest(SELECTOR_HANDLE)) {
-      togglePanel(event);
+      togglePanel(event.target);
     }
   }
 
