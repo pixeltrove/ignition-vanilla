@@ -24,7 +24,7 @@ function Accordion(accordion) {
   function moveFocus(handle, key) {
     const currentIndex = handles.indexOf(handle);
     const lastIndex = handles.length - 1;
-    let upcomingIndex = 0;
+    let upcomingIndex;
 
     switch (key) {
       case "ArrowUp":
