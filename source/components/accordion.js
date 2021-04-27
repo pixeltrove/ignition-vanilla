@@ -50,7 +50,7 @@ function Accordion(accordion) {
 
   function manageClick(event) {
     if (event.target.closest(SELECTOR_HANDLE)) {
-      togglePanel(event.target);
+      togglePanel(event.target.closest(SELECTOR_HANDLE));
     }
   }
 
