@@ -20,32 +20,27 @@ function Accordion(accordion) {
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function moveFocus(event) {
-    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
-    const currentIndex = handles.indexOf(event.target);
+  function moveFocus(handle, key) {
+    const currentIndex = handles.indexOf(handle);
     const lastIndex = handles.length - 1;
     let upcomingIndex = 0;
 
-    if (keys.includes(event.key)) {
-      event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowUp":
-          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
-          break;
-        case "ArrowDown":
-          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
-          break;
-        case "Home":
-          upcomingIndex = 0;
-          break;
-        case "End":
-          upcomingIndex = lastIndex;
-          break;
-      }
-
-      handles[upcomingIndex].focus();
+    switch (key) {
+      case "ArrowUp":
+        upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+        break;
+      case "ArrowDown":
+        upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+        break;
+      case "Home":
+        upcomingIndex = 0;
+        break;
+      case "End":
+        upcomingIndex = lastIndex;
+        break;
     }
+
+    handles[upcomingIndex].focus();
   }
 
   function manageClick(event) {
@@ -56,7 +51,12 @@ function Accordion(accordion) {
 
   function manageKeydown(event) {
     if (event.target.closest(SELECTOR_HANDLE)) {
-      moveFocus(event);
+      const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
+
+      if (keys.includes(event.key)) {
+        event.preventDefault();
+        moveFocus(event.target.closest(SELECTOR_HANDLE), event.key);
+      }
     }
   }
 
