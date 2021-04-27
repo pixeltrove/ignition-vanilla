@@ -45,20 +45,15 @@ function Accordion(accordion) {
   }
 
   function manageClick(event) {
-    const handle = event.target.closest(SELECTOR_HANDLE);
-
-    if (handle) {
-      togglePanel(handle);
+    if (event.target.closest(SELECTOR_HANDLE)) {
+      togglePanel(event.target.closest(SELECTOR_HANDLE));
     }
   }
 
   function manageKeydown(event) {
-    const handle = event.target.closest(SELECTOR_HANDLE);
-    const key = event.key;
-
-    if (handle && navigationKeys.includes(key)) {
+    if (event.target.closest(SELECTOR_HANDLE) && navigationKeys.includes(event.key)) {
       event.preventDefault();
-      moveFocus(handle, key);
+      moveFocus(event.target.closest(SELECTOR_HANDLE), event.key);
     }
   }
 
