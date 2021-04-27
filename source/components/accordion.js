@@ -44,18 +44,23 @@ function Accordion(accordion) {
   }
 
   function manageClick(event) {
-    if (event.target.closest(SELECTOR_HANDLE)) {
-      togglePanel(event.target.closest(SELECTOR_HANDLE));
+    const handle = event.target.closest(SELECTOR_HANDLE);
+
+    if (handle) {
+      togglePanel(handle);
     }
   }
 
   function manageKeydown(event) {
-    if (event.target.closest(SELECTOR_HANDLE)) {
+    const handle = event.target.closest(SELECTOR_HANDLE);
+    const key = event.key;
+
+    if (handle) {
       const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
 
-      if (keys.includes(event.key)) {
+      if (keys.includes(key)) {
         event.preventDefault();
-        moveFocus(event.target.closest(SELECTOR_HANDLE), event.key);
+        moveFocus(handle, key);
       }
     }
   }
