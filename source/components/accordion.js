@@ -9,7 +9,6 @@ const DATA_TARGET = "data-target";
 
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
-  const navigationKeys = ["ArrowUp", "ArrowDown", "Home", "End"];
 
   function togglePanel(handle) {
     const panelId = handle.getAttribute(DATA_TARGET);
@@ -51,7 +50,9 @@ function Accordion(accordion) {
   }
 
   function manageKeydown(event) {
-    if (event.target.closest(SELECTOR_HANDLE) && navigationKeys.includes(event.key)) {
+    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
+
+    if (event.target.closest(SELECTOR_HANDLE) && keys.includes(event.key)) {
       event.preventDefault();
       moveFocus(event.target.closest(SELECTOR_HANDLE), event.key);
     }
