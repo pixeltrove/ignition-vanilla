@@ -43,13 +43,13 @@ function Accordion(accordion) {
     handles[upcomingIndex].focus();
   }
 
-  function manageClick(event) {
+  function controlPanelToggle(event) {
     if (event.target.closest(SELECTOR_HANDLE)) {
       togglePanel(event.target.closest(SELECTOR_HANDLE));
     }
   }
 
-  function manageKeydown(event) {
+  function controlFocusMove(event) {
     const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
 
     if (event.target.closest(SELECTOR_HANDLE) && keys.includes(event.key)) {
@@ -58,8 +58,8 @@ function Accordion(accordion) {
     }
   }
 
-  accordion.addEventListener("click", manageClick);
-  accordion.addEventListener("keydown", manageKeydown);
+  accordion.addEventListener("click", controlPanelToggle);
+  accordion.addEventListener("keydown", controlFocusMove);
 }
 
 const accordions = Array.from(document.querySelectorAll(SELECTOR_ACCORDION));
