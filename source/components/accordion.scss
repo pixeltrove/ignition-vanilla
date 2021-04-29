@@ -39,6 +39,10 @@
     &:focus-visible {
       @include focus-visible(default);
     }
+
+    &.is-activated {
+      color: $color-brand-regular;
+    }
   }
 
   &-icon {
