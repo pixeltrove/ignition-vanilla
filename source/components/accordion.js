@@ -10,7 +10,10 @@ const DATA_TARGET = "data-target";
 function Accordion(accordion) {
   const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
 
-  function togglePanel(handle) {
+  function togglePanel(event) {
+    if (!event.target.closest(SELECTOR_HANDLE)) return;
+
+    const handle = event.target.closest(SELECTOR_HANDLE);
     const panelId = handle.getAttribute(DATA_TARGET);
     const panel = document.querySelector(`#${panelId}`);
     const isShown = panel.classList.contains(CLASS_SHOWN);
@@ -43,12 +46,6 @@ function Accordion(accordion) {
     handles[upcomingIndex].focus();
   }
 
-  function controlPanelToggle(event) {
-    if (event.target.closest(SELECTOR_HANDLE)) {
-      togglePanel(event.target.closest(SELECTOR_HANDLE));
-    }
-  }
-
   function controlFocusMove(event) {
     const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
 
@@ -58,7 +55,7 @@ function Accordion(accordion) {
     }
   }
 
-  accordion.addEventListener("click", controlPanelToggle);
+  accordion.addEventListener("click", togglePanel);
   accordion.addEventListener("keydown", controlFocusMove);
 }
 
