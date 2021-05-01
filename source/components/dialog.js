@@ -14,24 +14,14 @@ function Dialog(dialog) {
   const backdrop = dialog.closest(SELECTOR_BACKDROP);
 
   function show() {
-    dialog.addEventListener("click", hide);
-    backdrop.addEventListener("click", hide);
-    document.addEventListener("keyup", hide);
-
     backdrop.classList.add(CLASS_SHOWN);
     toggleScroll();
     trapFocus(dialog);
   }
 
-  function hide(event) {
-    if ((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
-      dialog.removeEventListener("click", hide);
-      backdrop.removeEventListener("click", hide);
-      document.removeEventListener("keyup", hide);
-
-      backdrop.classList.remove(CLASS_SHOWN);
-      toggleScroll();
-    }
+  function hide() {
+    backdrop.classList.remove(CLASS_SHOWN);
+    toggleScroll();
   }
 
   function toggleScroll() {
@@ -80,7 +70,23 @@ function Dialog(dialog) {
     dialog.focus();
   }
 
-  trigger.addEventListener("click", show);
+  function controlShow() {
+    show();
+    dialog.addEventListener("click", controlHide);
+    backdrop.addEventListener("click", controlHide);
+    document.addEventListener("keyup", controlHide);
+  }
+
+  function controlHide(event) {
+    if ((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
+      hide();
+      dialog.removeEventListener("click", controlHide);
+      backdrop.removeEventListener("click", controlHide);
+      document.removeEventListener("keyup", controlHide);
+    }
+  }
+
+  trigger.addEventListener("click", controlShow);
 }
 
 const dialogs = Array.from(document.querySelectorAll(SELECTOR_DIALOG));
