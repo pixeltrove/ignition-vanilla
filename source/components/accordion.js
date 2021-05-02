@@ -23,12 +23,15 @@ function Accordion(accordion) {
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function moveFocus(handle, key) {
+  function moveFocus(event) {
+    if (!event.target.closest(SELECTOR_HANDLE) || !["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+
+    const handle = event.target.closest(SELECTOR_HANDLE);
     const currentIndex = handles.indexOf(handle);
     const lastIndex = handles.length - 1;
     let upcomingIndex;
 
-    switch (key) {
+    switch (event.key) {
       case "ArrowUp":
         upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
         break;
@@ -43,20 +46,12 @@ function Accordion(accordion) {
         break;
     }
 
+    event.preventDefault();
     handles[upcomingIndex].focus();
   }
 
-  function controlFocusMove(event) {
-    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
-
-    if (event.target.closest(SELECTOR_HANDLE) && keys.includes(event.key)) {
-      event.preventDefault();
-      moveFocus(event.target.closest(SELECTOR_HANDLE), event.key);
-    }
-  }
-
   accordion.addEventListener("click", togglePanel);
-  accordion.addEventListener("keydown", controlFocusMove);
+  accordion.addEventListener("keydown", moveFocus);
 }
 
 const accordions = Array.from(document.querySelectorAll(SELECTOR_ACCORDION));
