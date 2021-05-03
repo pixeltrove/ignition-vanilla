@@ -48,17 +48,17 @@ function Dialog(dialog) {
   }
 
   function toggleScroll() {
-    if (window.innerHeight < document.body.scrollHeight) {
-      const scrollPosition = Math.abs(parseInt(document.body.style.top)) || window.scrollY;
+    if (window.innerHeight >= document.body.scrollHeight) return;
 
-      if (document.body.classList.contains(CLASS_NO_SCROLL)) {
-        document.body.classList.remove(CLASS_NO_SCROLL);
-        document.body.style.top = "";
-        window.scroll(0, scrollPosition);
-      } else {
-        document.body.classList.add(CLASS_NO_SCROLL);
-        document.body.style.top = -scrollPosition + "px";
-      }
+    const scrollPosition = Math.abs(parseInt(document.body.style.top)) || window.scrollY;
+
+    if (document.body.classList.contains(CLASS_NO_SCROLL)) {
+      document.body.classList.remove(CLASS_NO_SCROLL);
+      document.body.style.top = "";
+      window.scroll(0, scrollPosition);
+    } else {
+      document.body.classList.add(CLASS_NO_SCROLL);
+      document.body.style.top = -scrollPosition + "px";
     }
   }
 
