@@ -14,22 +14,22 @@ function Dialog(dialog) {
   const backdrop = dialog.closest(SELECTOR_BACKDROP);
 
   function show() {
-    dialog.addEventListener("click", hideOnButtonClick);
-    backdrop.addEventListener("click", hideOnOutsideClick);
-    document.addEventListener("keydown", hideOnEscape);
-
     backdrop.classList.add(CLASS_SHOWN);
     toggleScroll();
     trapFocus(dialog);
+
+    dialog.addEventListener("click", hideOnButtonClick);
+    backdrop.addEventListener("click", hideOnOutsideClick);
+    document.addEventListener("keydown", hideOnEscape);
   }
 
   function hide() {
+    backdrop.classList.remove(CLASS_SHOWN);
+    toggleScroll();
+
     dialog.removeEventListener("click", hideOnButtonClick);
     backdrop.removeEventListener("click", hideOnOutsideClick);
     document.removeEventListener("keydown", hideOnEscape);
-
-    backdrop.classList.remove(CLASS_SHOWN);
-    toggleScroll();
   }
 
   function hideOnButtonClick(event) {
