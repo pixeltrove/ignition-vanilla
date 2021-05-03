@@ -14,24 +14,37 @@ function Dialog(dialog) {
   const backdrop = dialog.closest(SELECTOR_BACKDROP);
 
   function show() {
-    dialog.addEventListener("click", hide);
-    backdrop.addEventListener("click", hide);
-    document.addEventListener("keyup", hide);
+    dialog.addEventListener("click", hideOnButtonClick);
+    backdrop.addEventListener("click", hideOnOutsideClick);
+    document.addEventListener("keydown", hideOnEscape);
 
     backdrop.classList.add(CLASS_SHOWN);
     toggleScroll();
     trapFocus(dialog);
   }
 
-  function hide(event) {
-    if ((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
-      dialog.removeEventListener("click", hide);
-      backdrop.removeEventListener("click", hide);
-      document.removeEventListener("keyup", hide);
+  function hide() {
+    dialog.removeEventListener("click", hideOnButtonClick);
+    backdrop.removeEventListener("click", hideOnOutsideClick);
+    document.removeEventListener("keydown", hideOnEscape);
 
-      backdrop.classList.remove(CLASS_SHOWN);
-      toggleScroll();
-    }
+    backdrop.classList.remove(CLASS_SHOWN);
+    toggleScroll();
+  }
+
+  function hideOnButtonClick(event) {
+    if (!event.target.hasAttribute(DATA_HIDE)) return;
+    hide();
+  }
+
+  function hideOnOutsideClick(event) {
+    if (dialog.contains(event.target)) return;
+    hide();
+  }
+
+  function hideOnEscape(event) {
+    if (!(event.key === "Escape")) return;
+    hide();
   }
 
   function toggleScroll() {
