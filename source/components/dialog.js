@@ -15,9 +15,12 @@ function Dialog(dialog) {
 
   function show() {
     backdrop.classList.add(CLASS_SHOWN);
+    dialog.setAttribute("tabindex", -1);
+    dialog.focus();
     toggleScroll();
     trapFocus(dialog);
 
+    dialog.addEventListener("keydown", trapFocus);
     dialog.addEventListener("click", hideOnButtonClick);
     backdrop.addEventListener("click", hideOnOutsideClick);
     document.addEventListener("keydown", hideOnEscape);
@@ -27,6 +30,7 @@ function Dialog(dialog) {
     backdrop.classList.remove(CLASS_SHOWN);
     toggleScroll();
 
+    dialog.removeEventListener("keydown", trapFocus);
     dialog.removeEventListener("click", hideOnButtonClick);
     backdrop.removeEventListener("click", hideOnOutsideClick);
     document.removeEventListener("keydown", hideOnEscape);
@@ -62,35 +66,27 @@ function Dialog(dialog) {
     }
   }
 
-  function trapFocus(dialog) {
+  function trapFocus(event) {
+    if (event.key !== "Tab") return;
+
     const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
     const firstFocusableElement = focusableElements[0];
     const lastFocusableElement = focusableElements[focusableElements.length - 1];
+    const tabBackward = event.shiftKey;
 
-    function cycleFocus(event) {
-      if (event.key === "Tab") {
-        const tabBackward = event.shiftKey;
-
-        if (tabBackward) {
-          if (document.activeElement === firstFocusableElement) {
-            event.preventDefault();
-            lastFocusableElement.focus();
-          } else if (document.activeElement === dialog) {
-            event.preventDefault();
-          }
-        } else if (!tabBackward) {
-          if (document.activeElement === lastFocusableElement) {
-            event.preventDefault();
-            firstFocusableElement.focus();
-          }
-        }
+    if (tabBackward) {
+      if (document.activeElement === firstFocusableElement) {
+        event.preventDefault();
+        lastFocusableElement.focus();
+      } else if (document.activeElement === dialog) {
+        event.preventDefault();
+      }
+    } else if (!tabBackward) {
+      if (document.activeElement === lastFocusableElement) {
+        event.preventDefault();
+        firstFocusableElement.focus();
       }
     }
-
-    dialog.addEventListener("keydown", cycleFocus);
-
-    dialog.setAttribute("tabindex", -1);
-    dialog.focus();
   }
 
   trigger.addEventListener("click", show);
