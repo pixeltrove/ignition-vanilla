@@ -18,7 +18,6 @@ function Dialog(dialog) {
     dialog.setAttribute("tabindex", -1);
     dialog.focus();
     toggleScroll();
-    trapFocus(dialog);
 
     dialog.addEventListener("keydown", trapFocus);
     dialog.addEventListener("click", hideOnButtonClick);
@@ -73,22 +72,15 @@ function Dialog(dialog) {
     if (event.key !== "Tab") return;
 
     const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
-    const firstFocusableElement = focusableElements[0];
-    const lastFocusableElement = focusableElements[focusableElements.length - 1];
-    const tabBackward = event.shiftKey;
+    const lastIndex = focusableElements.length - 1;
+    const focusIndex = focusableElements.indexOf(document.activeElement);
 
-    if (tabBackward) {
-      if (document.activeElement === firstFocusableElement) {
-        event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (document.activeElement === dialog) {
-        event.preventDefault();
-      }
-    } else if (!tabBackward) {
-      if (document.activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement.focus();
-      }
+    if (event.shiftKey && (focusIndex === 0 || document.activeElement === dialog)) {
+      event.preventDefault();
+      focusableElements[focusableElements.length - 1].focus();
+    } else if (!event.shiftKey && focusIndex === lastIndex) {
+      event.preventDefault();
+      focusableElements[0].focus();
     }
   }
 
