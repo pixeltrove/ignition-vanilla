@@ -14,70 +14,58 @@ function Dialog(dialog) {
   const backdrop = dialog.closest(SELECTOR_BACKDROP);
 
   function show() {
+    backdrop.classList.add(CLASS_SHOWN);
+    dialog.setAttribute("tabindex", -1);
+    dialog.focus();
+    toggleScroll();
+
+    dialog.addEventListener("keydown", trapFocus);
     dialog.addEventListener("click", hide);
     backdrop.addEventListener("click", hide);
-    document.addEventListener("keyup", hide);
-
-    backdrop.classList.add(CLASS_SHOWN);
-    toggleScroll();
-    trapFocus(dialog);
+    document.addEventListener("keydown", hide);
   }
 
   function hide(event) {
-    if ((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape") {
-      dialog.removeEventListener("click", hide);
-      backdrop.removeEventListener("click", hide);
-      document.removeEventListener("keyup", hide);
+    if (!((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape")) return;
 
-      backdrop.classList.remove(CLASS_SHOWN);
-      toggleScroll();
-    }
+    backdrop.classList.remove(CLASS_SHOWN);
+    toggleScroll();
+
+    dialog.removeEventListener("keydown", trapFocus);
+    dialog.removeEventListener("click", hide);
+    backdrop.removeEventListener("click", hide);
+    document.removeEventListener("keydown", hide);
   }
 
   function toggleScroll() {
-    if (window.innerHeight < document.body.scrollHeight) {
-      const scrollPosition = Math.abs(parseInt(document.body.style.top)) || window.scrollY;
+    if (window.innerHeight >= document.body.scrollHeight) return;
 
-      if (document.body.classList.contains(CLASS_NO_SCROLL)) {
-        document.body.classList.remove(CLASS_NO_SCROLL);
-        document.body.style.top = "";
-        window.scroll(0, scrollPosition);
-      } else {
-        document.body.classList.add(CLASS_NO_SCROLL);
-        document.body.style.top = -scrollPosition + "px";
-      }
+    const scrollPosition = Math.abs(parseInt(document.body.style.top)) || window.scrollY;
+
+    if (document.body.classList.contains(CLASS_NO_SCROLL)) {
+      document.body.classList.remove(CLASS_NO_SCROLL);
+      document.body.style.top = "";
+      window.scroll(0, scrollPosition);
+    } else {
+      document.body.classList.add(CLASS_NO_SCROLL);
+      document.body.style.top = -scrollPosition + "px";
     }
   }
 
-  function trapFocus(dialog) {
+  function trapFocus(event) {
+    if (event.key !== "Tab") return;
+
     const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
-    const firstFocusableElement = focusableElements[0];
-    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+    const lastIndex = focusableElements.length - 1;
+    const focusIndex = focusableElements.indexOf(document.activeElement);
 
-    function cycleFocus(event) {
-      if (event.key === "Tab") {
-        const tabBackward = event.shiftKey;
-
-        if (tabBackward) {
-          if (document.activeElement === firstFocusableElement) {
-            event.preventDefault();
-            lastFocusableElement.focus();
-          } else if (document.activeElement === dialog) {
-            event.preventDefault();
-          }
-        } else if (!tabBackward) {
-          if (document.activeElement === lastFocusableElement) {
-            event.preventDefault();
-            firstFocusableElement.focus();
-          }
-        }
-      }
+    if (event.shiftKey && (focusIndex === 0 || document.activeElement === dialog)) {
+      event.preventDefault();
+      focusableElements[focusableElements.length - 1].focus();
+    } else if (!event.shiftKey && focusIndex === lastIndex) {
+      event.preventDefault();
+      focusableElements[0].focus();
     }
-
-    dialog.addEventListener("keydown", cycleFocus);
-
-    dialog.setAttribute("tabindex", -1);
-    dialog.focus();
   }
 
   trigger.addEventListener("click", show);
