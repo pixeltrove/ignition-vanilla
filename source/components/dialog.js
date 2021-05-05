@@ -20,37 +20,21 @@ function Dialog(dialog) {
     toggleScroll();
 
     dialog.addEventListener("keydown", trapFocus);
-    dialog.addEventListener("click", hideOnButtonClick);
-    backdrop.addEventListener("click", hideOnBackdropClick);
-    document.addEventListener("keydown", hideOnEscape);
+    dialog.addEventListener("click", hide);
+    backdrop.addEventListener("click", hide);
+    document.addEventListener("keydown", hide);
   }
 
-  function hide() {
+  function hide(event) {
+    if (!((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape")) return;
+
     backdrop.classList.remove(CLASS_SHOWN);
     toggleScroll();
 
     dialog.removeEventListener("keydown", trapFocus);
-    dialog.removeEventListener("click", hideOnButtonClick);
-    backdrop.removeEventListener("click", hideOnBackdropClick);
-    document.removeEventListener("keydown", hideOnEscape);
-  }
-
-  function hideOnButtonClick(event) {
-    if (event.target.hasAttribute(DATA_HIDE)) {
-      hide();
-    }
-  }
-
-  function hideOnBackdropClick(event) {
-    if (!dialog.contains(event.target)) {
-      hide();
-    }
-  }
-
-  function hideOnEscape(event) {
-    if (event.key === "Escape") {
-      hide();
-    }
+    dialog.removeEventListener("click", hide);
+    backdrop.removeEventListener("click", hide);
+    document.removeEventListener("keydown", hide);
   }
 
   function toggleScroll() {
