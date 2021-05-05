@@ -24,20 +24,22 @@ function Menu(menu) {
       document.addEventListener("keydown", hideOnEscape);
       trigger.addEventListener("keydown", hideOnTab);
       menu.addEventListener("keydown", hideOnTab);
-      links.forEach((link) => {
-        link.addEventListener("keydown", moveFocus);
-      });
+      menu.addEventListener("keydown", moveFocus);
     } else {
       document.removeEventListener("click", hideOnOutsideClick);
       document.removeEventListener("keydown", hideOnEscape);
       trigger.removeEventListener("keydown", hideOnTab);
       menu.removeEventListener("keydown", hideOnTab);
+      menu.removeEventListener("keydown", moveFocus);
     }
   }
 
   function moveFocus(event) {
+    if (!event.target.closest(SELECTOR_LINK)) return;
+
     const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
-    const currentIndex = links.indexOf(event.currentTarget);
+    const link = event.target.closest(SELECTOR_LINK);
+    const currentIndex = links.indexOf(link);
     const lastIndex = links.length - 1;
     let upcomingIndex = 0;
 
