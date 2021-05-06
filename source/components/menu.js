@@ -35,34 +35,30 @@ function Menu(menu) {
   }
 
   function moveFocus(event) {
-    if (!event.target.closest(SELECTOR_LINK)) return;
+    if (!event.target.closest(SELECTOR_LINK) || !["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
 
-    const keys = ["ArrowUp", "ArrowDown", "Home", "End"];
     const link = event.target.closest(SELECTOR_LINK);
     const currentIndex = links.indexOf(link);
     const lastIndex = links.length - 1;
-    let upcomingIndex = 0;
+    let upcomingIndex;
 
-    if (keys.includes(event.key)) {
-      event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowUp":
-          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
-          break;
-        case "ArrowDown":
-          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
-          break;
-        case "Home":
-          upcomingIndex = 0;
-          break;
-        case "End":
-          upcomingIndex = lastIndex;
-          break;
-      }
-
-      links[upcomingIndex].focus();
+    switch (event.key) {
+      case "ArrowUp":
+        upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+        break;
+      case "ArrowDown":
+        upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+        break;
+      case "Home":
+        upcomingIndex = 0;
+        break;
+      case "End":
+        upcomingIndex = lastIndex;
+        break;
     }
+
+    event.preventDefault();
+    links[upcomingIndex].focus();
   }
 
   function hideOnOutsideClick(event) {
