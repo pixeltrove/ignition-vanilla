@@ -20,17 +20,26 @@ function Menu(menu) {
     menu.classList.toggle(CLASS_SHOWN);
 
     if (!isShown) {
-      document.addEventListener("click", hideOnOutsideClick);
-      document.addEventListener("keydown", hideOnEscape);
-      trigger.addEventListener("keydown", hideOnTab);
-      menu.addEventListener("keydown", hideOnTab);
+      document.addEventListener("click", hide);
+      document.addEventListener("keydown", hide);
+      trigger.addEventListener("keydown", hide);
+      menu.addEventListener("keydown", hide);
       menu.addEventListener("keydown", moveFocus);
     } else {
-      document.removeEventListener("click", hideOnOutsideClick);
-      document.removeEventListener("keydown", hideOnEscape);
-      trigger.removeEventListener("keydown", hideOnTab);
-      menu.removeEventListener("keydown", hideOnTab);
+      document.removeEventListener("click", hide);
+      document.removeEventListener("keydown", hide);
+      trigger.removeEventListener("keydown", hide);
+      menu.removeEventListener("keydown", hide);
       menu.removeEventListener("keydown", moveFocus);
+    }
+  }
+
+  function hide(event) {
+    const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    if ((!trigger.contains(event.target) && !menu.contains(event.target)) || event.key === "Escape" || (event.key === "Tab" && document.activeElement === lastFocusableElement && !event.shiftKey) || (event.key === "Tab" && document.activeElement === trigger && event.shiftKey)) {
+      toggle();
     }
   }
 
@@ -59,30 +68,6 @@ function Menu(menu) {
 
     event.preventDefault();
     links[upcomingIndex].focus();
-  }
-
-  function hideOnOutsideClick(event) {
-    if (!trigger.contains(event.target) && !menu.contains(event.target)) {
-      toggle();
-    }
-  }
-
-  function hideOnEscape(event) {
-    if (event.key === "Escape") {
-      toggle();
-    }
-  }
-
-  function hideOnTab(event) {
-    if (event.key === "Tab") {
-      const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-      const tabBackward = event.shiftKey;
-
-      if ((document.activeElement === lastFocusableElement && !tabBackward) || (document.activeElement === trigger && tabBackward)) {
-        toggle();
-      }
-    }
   }
 
   trigger.addEventListener("click", toggle);
