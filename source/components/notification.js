@@ -5,13 +5,13 @@ const SELECTOR_NOTIFICATION = ".notification";
 const SELECTOR_BUTTON_DISMISS = ".notification-button-dismiss";
 
 function Notification(notification) {
-  function dismiss(event) {
+  function manageDismiss(event) {
     if (event.target.closest(SELECTOR_BUTTON_DISMISS)) {
       notification.remove();
     }
   }
 
-  notification.addEventListener("click", dismiss);
+  notification.addEventListener("click", manageDismiss);
 }
 
 const notifications = Array.from(document.querySelectorAll(SELECTOR_NOTIFICATION));
