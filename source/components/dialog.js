@@ -19,22 +19,38 @@ function Dialog(dialog) {
     dialog.focus();
     toggleScroll();
 
-    dialog.addEventListener("keydown", trapFocus);
-    dialog.addEventListener("click", hide);
-    backdrop.addEventListener("click", hide);
-    document.addEventListener("keydown", hide);
+    dialog.addEventListener("keydown", manageFocusTrap);
+    dialog.addEventListener("click", manageHideOnButtonClick);
+    backdrop.addEventListener("click", manageHideOnBackdropClick);
+    document.addEventListener("keydown", manageHideOnEscape);
   }
 
-  function hide(event) {
-    if (!((event.target.hasAttribute(DATA_HIDE) && event.type === "click") || event.target.matches(SELECTOR_BACKDROP) || event.key === "Escape")) return;
-
+  function hide() {
     backdrop.classList.remove(CLASS_SHOWN);
     toggleScroll();
 
-    dialog.removeEventListener("keydown", trapFocus);
-    dialog.removeEventListener("click", hide);
-    backdrop.removeEventListener("click", hide);
-    document.removeEventListener("keydown", hide);
+    dialog.removeEventListener("keydown", manageFocusTrap);
+    dialog.removeEventListener("click", manageHideOnButtonClick);
+    backdrop.removeEventListener("click", manageHideOnBackdropClick);
+    document.removeEventListener("keydown", manageHideOnEscape);
+  }
+
+  function manageHideOnButtonClick(event) {
+    if (event.target.hasAttribute(DATA_HIDE)) {
+      hide();
+    }
+  }
+
+  function manageHideOnBackdropClick(event) {
+    if (event.target.matches(SELECTOR_BACKDROP)) {
+      hide();
+    }
+  }
+
+  function manageHideOnEscape(event) {
+    if (event.key === "Escape") {
+      hide();
+    }
   }
 
   function toggleScroll() {
@@ -52,19 +68,19 @@ function Dialog(dialog) {
     }
   }
 
-  function trapFocus(event) {
-    if (event.key !== "Tab") return;
+  function manageFocusTrap(event) {
+    if (event.key === "Tab") {
+      const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
+      const lastIndex = focusableElements.length - 1;
+      const focusIndex = focusableElements.indexOf(document.activeElement);
 
-    const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
-    const lastIndex = focusableElements.length - 1;
-    const focusIndex = focusableElements.indexOf(document.activeElement);
-
-    if (event.shiftKey && (focusIndex === 0 || document.activeElement === dialog)) {
-      event.preventDefault();
-      focusableElements[focusableElements.length - 1].focus();
-    } else if (!event.shiftKey && focusIndex === lastIndex) {
-      event.preventDefault();
-      focusableElements[0].focus();
+      if ((event.shiftKey && focusIndex === 0) || (event.shiftKey && document.activeElement === dialog)) {
+        event.preventDefault();
+        focusableElements[focusableElements.length - 1].focus();
+      } else if (!event.shiftKey && focusIndex === lastIndex) {
+        event.preventDefault();
+        focusableElements[0].focus();
+      }
     }
   }
 
