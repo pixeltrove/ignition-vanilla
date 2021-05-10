@@ -20,37 +20,17 @@ function Menu(menu) {
     menu.classList.toggle(CLASS_SHOWN);
 
     if (!isShown) {
-      document.addEventListener("click", manageHideOnOutsideClick);
-      document.addEventListener("keydown", manageHideOnEscape);
-      trigger.addEventListener("keydown", manageHideOnTab);
-      menu.addEventListener("keydown", manageHideOnTab);
-      menu.addEventListener("keydown", manageFocusMove);
+      document.addEventListener("click", handleOutsideClick);
+      document.addEventListener("keydown", handleEscape);
+      trigger.addEventListener("keydown", handleTab);
+      menu.addEventListener("keydown", handleTab);
+      menu.addEventListener("keydown", handleFocusMove);
     } else {
-      document.removeEventListener("click", manageHideOnOutsideClick);
-      document.removeEventListener("keydown", manageHideOnEscape);
-      trigger.removeEventListener("keydown", manageHideOnTab);
-      menu.removeEventListener("keydown", manageHideOnTab);
-      menu.removeEventListener("keydown", manageFocusMove);
-    }
-  }
-
-  function manageHideOnOutsideClick(event) {
-    if (!trigger.contains(event.target) && !menu.contains(event.target)) {
-      toggle();
-    }
-  }
-
-  function manageHideOnEscape(event) {
-    if (event.key === "Escape") {
-      toggle();
-    }
-  }
-
-  function manageHideOnTab(event) {
-    const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
-    const lastFocusableElement = focusableElements[focusableElements.length - 1];
-    if ((event.key === "Tab" && document.activeElement === lastFocusableElement && !event.shiftKey) || (event.key === "Tab" && document.activeElement === trigger && event.shiftKey)) {
-      toggle();
+      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("keydown", handleEscape);
+      trigger.removeEventListener("keydown", handleTab);
+      menu.removeEventListener("keydown", handleTab);
+      menu.removeEventListener("keydown", handleFocusMove);
     }
   }
 
@@ -77,7 +57,27 @@ function Menu(menu) {
     links[upcomingIndex].focus();
   }
 
-  function manageFocusMove(event) {
+  function handleOutsideClick(event) {
+    if (!trigger.contains(event.target) && !menu.contains(event.target)) {
+      toggle();
+    }
+  }
+
+  function handleEscape(event) {
+    if (event.key === "Escape") {
+      toggle();
+    }
+  }
+
+  function handleTab(event) {
+    const focusableElements = Array.from(menu.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])"));
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+    if ((event.key === "Tab" && document.activeElement === lastFocusableElement && !event.shiftKey) || (event.key === "Tab" && document.activeElement === trigger && event.shiftKey)) {
+      toggle();
+    }
+  }
+
+  function handleFocusMove(event) {
     if (event.target.closest(SELECTOR_LINK) && ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
       event.preventDefault();
       moveFocus(event.target.closest(SELECTOR_LINK), event.key);
