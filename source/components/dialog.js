@@ -19,38 +19,20 @@ function Dialog(dialog) {
     dialog.focus();
     toggleScroll();
 
-    dialog.addEventListener("keydown", manageFocusTrap);
-    dialog.addEventListener("click", manageHideOnButtonClick);
-    backdrop.addEventListener("click", manageHideOnBackdropClick);
-    document.addEventListener("keydown", manageHideOnEscape);
+    dialog.addEventListener("keydown", handleFocusTrap);
+    dialog.addEventListener("click", handleHideClick);
+    backdrop.addEventListener("click", handleBackdropClick);
+    document.addEventListener("keydown", handleEscape);
   }
 
   function hide() {
     backdrop.classList.remove(CLASS_SHOWN);
     toggleScroll();
 
-    dialog.removeEventListener("keydown", manageFocusTrap);
-    dialog.removeEventListener("click", manageHideOnButtonClick);
-    backdrop.removeEventListener("click", manageHideOnBackdropClick);
-    document.removeEventListener("keydown", manageHideOnEscape);
-  }
-
-  function manageHideOnButtonClick(event) {
-    if (event.target.hasAttribute(DATA_HIDE)) {
-      hide();
-    }
-  }
-
-  function manageHideOnBackdropClick(event) {
-    if (event.target.matches(SELECTOR_BACKDROP)) {
-      hide();
-    }
-  }
-
-  function manageHideOnEscape(event) {
-    if (event.key === "Escape") {
-      hide();
-    }
+    dialog.removeEventListener("keydown", handleFocusTrap);
+    dialog.removeEventListener("click", handleHideClick);
+    backdrop.removeEventListener("click", handleBackdropClick);
+    document.removeEventListener("keydown", handleEscape);
   }
 
   function toggleScroll() {
@@ -68,7 +50,25 @@ function Dialog(dialog) {
     }
   }
 
-  function manageFocusTrap(event) {
+  function handleHideClick(event) {
+    if (event.target.hasAttribute(DATA_HIDE)) {
+      hide();
+    }
+  }
+
+  function handleBackdropClick(event) {
+    if (event.target.matches(SELECTOR_BACKDROP)) {
+      hide();
+    }
+  }
+
+  function handleEscape(event) {
+    if (event.key === "Escape") {
+      hide();
+    }
+  }
+
+  function handleFocusTrap(event) {
     if (event.key === "Tab") {
       const focusableElements = Array.from(dialog.querySelectorAll("a[href], audio[controls], button:not([disabled]), details, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), video[controls], [contenteditable]"));
       const lastIndex = focusableElements.length - 1;
