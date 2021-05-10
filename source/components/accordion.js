@@ -2,36 +2,30 @@
 // -----------------------------------------------------------------------------
 
 const SELECTOR_ACCORDION = ".accordion";
-const SELECTOR_HANDLE = ".accordion-handle";
+const SELECTOR_SLAT = ".accordion-slat";
 const CLASS_ACTIVATED = "is-activated";
 const CLASS_SHOWN = "is-shown";
 const DATA_TARGET = "data-target";
 
 function Accordion(accordion) {
-  const handles = Array.from(accordion.querySelectorAll(SELECTOR_HANDLE));
+  const slats = Array.from(accordion.querySelectorAll(SELECTOR_SLAT));
 
-  function togglePanel(event) {
-    if (!event.target.closest(SELECTOR_HANDLE)) return;
-
-    const handle = event.target.closest(SELECTOR_HANDLE);
-    const panelId = handle.getAttribute(DATA_TARGET);
+  function togglePanel(slat) {
+    const panelId = slat.getAttribute(DATA_TARGET);
     const panel = document.querySelector(`#${panelId}`);
     const isShown = panel.classList.contains(CLASS_SHOWN);
 
-    handle.classList.toggle(CLASS_ACTIVATED);
-    handle.setAttribute("aria-expanded", !isShown);
+    slat.classList.toggle(CLASS_ACTIVATED);
+    slat.setAttribute("aria-expanded", !isShown);
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function moveFocus(event) {
-    if (!event.target.closest(SELECTOR_HANDLE) || !["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
-
-    const handle = event.target.closest(SELECTOR_HANDLE);
-    const currentIndex = handles.indexOf(handle);
-    const lastIndex = handles.length - 1;
+  function moveFocus(slat, key) {
+    const currentIndex = slats.indexOf(slat);
+    const lastIndex = slats.length - 1;
     let upcomingIndex;
 
-    switch (event.key) {
+    switch (key) {
       case "ArrowUp":
         upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
         break;
@@ -46,12 +40,24 @@ function Accordion(accordion) {
         break;
     }
 
-    event.preventDefault();
-    handles[upcomingIndex].focus();
+    slats[upcomingIndex].focus();
   }
 
-  accordion.addEventListener("click", togglePanel);
-  accordion.addEventListener("keydown", moveFocus);
+  function handleSlatClick(event) {
+    if (event.target.closest(SELECTOR_SLAT)) {
+      togglePanel(event.target.closest(SELECTOR_SLAT));
+    }
+  }
+
+  function handleSlatKeydown(event) {
+    if (event.target.closest(SELECTOR_SLAT) && ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+      moveFocus(event.target.closest(SELECTOR_SLAT), event.key);
+    }
+  }
+
+  accordion.addEventListener("click", handleSlatClick);
+  accordion.addEventListener("keydown", handleSlatKeydown);
 }
 
 const accordions = Array.from(document.querySelectorAll(SELECTOR_ACCORDION));

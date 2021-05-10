@@ -12,8 +12,7 @@ function Tabset(tabset) {
   const tabs = Array.from(tabset.querySelectorAll(SELECTOR_TAB));
   const panels = Array.from(tabset.querySelectorAll(SELECTOR_PANEL));
 
-  function activateTab(event) {
-    const currentTab = event.currentTarget;
+  function activateTab(currentTab) {
     const panelId = currentTab.getAttribute(DATA_TARGET);
 
     tabs.forEach((tab) => {
@@ -33,40 +32,46 @@ function Tabset(tabset) {
     });
   }
 
-  function moveFocus(event) {
-    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
-    const currentIndex = tabs.indexOf(event.currentTarget);
+  function moveFocus(tab, key) {
+    const currentIndex = tabs.indexOf(tab);
     const lastIndex = tabs.length - 1;
     let upcomingIndex = 0;
 
-    if (keys.includes(event.key)) {
-      event.preventDefault();
+    switch (key) {
+      case "ArrowLeft":
+        upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+        break;
+      case "ArrowRight":
+        upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+        break;
+      case "Home":
+        upcomingIndex = 0;
+        break;
+      case "End":
+        upcomingIndex = lastIndex;
+        break;
+    }
 
-      switch (event.key) {
-        case "ArrowLeft":
-          upcomingIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
-          break;
-        case "ArrowRight":
-          upcomingIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
-          break;
-        case "Home":
-          upcomingIndex = 0;
-          break;
-        case "End":
-          upcomingIndex = lastIndex;
-          break;
-      }
+    tabs[currentIndex].removeAttribute("tabIndex");
+    tabs[upcomingIndex].setAttribute("tabIndex", "-1");
+    tabs[upcomingIndex].focus();
+  }
 
-      tabs[currentIndex].removeAttribute("tabIndex");
-      tabs[upcomingIndex].setAttribute("tabIndex", "-1");
-      tabs[upcomingIndex].focus();
+  function handleTabActivation(event) {
+    if (event.target.closest(SELECTOR_TAB)) {
+      activateTab(event.target.closest(SELECTOR_TAB));
     }
   }
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", activateTab);
-    tab.addEventListener("keydown", moveFocus);
-  });
+  function handleFocusMove(event) {
+    if (event.target.closest(SELECTOR_TAB) && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+      moveFocus(event.target.closest(SELECTOR_TAB), event.key);
+    }
+  }
+
+  tabset.addEventListener("click", handleTabActivation);
+  tabset.addEventListener("keydown", handleFocusMove);
 }
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
