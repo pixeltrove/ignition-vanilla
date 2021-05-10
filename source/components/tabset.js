@@ -32,12 +32,6 @@ function Tabset(tabset) {
     });
   }
 
-  function manageTabActivation(event) {
-    if (event.target.closest(SELECTOR_TAB)) {
-      activateTab(event.target.closest(SELECTOR_TAB));
-    }
-  }
-
   function moveFocus(tab, key) {
     const currentIndex = tabs.indexOf(tab);
     const lastIndex = tabs.length - 1;
@@ -63,15 +57,21 @@ function Tabset(tabset) {
     tabs[upcomingIndex].focus();
   }
 
-  function manageFocusMove(event) {
+  function handleTabActivation(event) {
+    if (event.target.closest(SELECTOR_TAB)) {
+      activateTab(event.target.closest(SELECTOR_TAB));
+    }
+  }
+
+  function handleFocusMove(event) {
     if (event.target.closest(SELECTOR_TAB) && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
       event.preventDefault();
       moveFocus(event.target.closest(SELECTOR_TAB), event.key);
     }
   }
 
-  tabset.addEventListener("click", manageTabActivation);
-  tabset.addEventListener("keydown", manageFocusMove);
+  tabset.addEventListener("click", handleTabActivation);
+  tabset.addEventListener("keydown", handleFocusMove);
 }
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
