@@ -24,13 +24,13 @@ function Menu(menu) {
       document.addEventListener("keydown", handleEscape);
       trigger.addEventListener("keydown", handleTab);
       menu.addEventListener("keydown", handleTab);
-      menu.addEventListener("keydown", handleFocusMove);
+      menu.addEventListener("keydown", handleLinkKeydown);
     } else {
       document.removeEventListener("click", handleOutsideClick);
       document.removeEventListener("keydown", handleEscape);
       trigger.removeEventListener("keydown", handleTab);
       menu.removeEventListener("keydown", handleTab);
-      menu.removeEventListener("keydown", handleFocusMove);
+      menu.removeEventListener("keydown", handleLinkKeydown);
     }
   }
 
@@ -77,7 +77,7 @@ function Menu(menu) {
     }
   }
 
-  function handleFocusMove(event) {
+  function handleLinkKeydown(event) {
     if (event.target.closest(SELECTOR_LINK) && ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
       event.preventDefault();
       moveFocus(event.key);
