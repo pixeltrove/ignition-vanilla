@@ -59,21 +59,21 @@ function Tabset(tabset) {
     tabs[upcomingIndex].focus();
   }
 
-  function handleTabActivation(event) {
+  function handleTabClick(event) {
     if (event.target.closest(SELECTOR_TAB)) {
       activateTab(event.target.closest(SELECTOR_TAB));
     }
   }
 
-  function handleFocusMove(event) {
+  function handleTabKeydown(event) {
     if (event.target.closest(SELECTOR_TAB) && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
       event.preventDefault();
       moveFocus(event.key);
     }
   }
 
-  tabset.addEventListener("click", handleTabActivation);
-  tabset.addEventListener("keydown", handleFocusMove);
+  tabset.addEventListener("click", handleTabClick);
+  tabset.addEventListener("keydown", handleTabKeydown);
 }
 
 const tabsets = Array.from(document.querySelectorAll(SELECTOR_TABSET));
