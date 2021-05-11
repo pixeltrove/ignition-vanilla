@@ -18,8 +18,10 @@ function Tabset(tabset) {
     tabs.forEach((tab) => {
       if (tab === currentTab) {
         currentTab.classList.add(CLASS_ACTIVATED);
+        tab.removeAttribute("tabIndex");
       } else if (tab.classList.contains(CLASS_ACTIVATED)) {
         tab.classList.remove(CLASS_ACTIVATED);
+        tab.setAttribute("tabIndex", "-1");
       }
     });
 
