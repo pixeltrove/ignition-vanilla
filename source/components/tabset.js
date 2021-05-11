@@ -32,8 +32,8 @@ function Tabset(tabset) {
     });
   }
 
-  function moveFocus(tab, key) {
-    const currentIndex = tabs.indexOf(tab);
+  function moveFocus(key) {
+    const currentIndex = tabs.indexOf(document.activeElement);
     const lastIndex = tabs.length - 1;
     let upcomingIndex = 0;
 
@@ -66,7 +66,7 @@ function Tabset(tabset) {
   function handleFocusMove(event) {
     if (event.target.closest(SELECTOR_TAB) && ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
       event.preventDefault();
-      moveFocus(event.target.closest(SELECTOR_TAB), event.key);
+      moveFocus(event.key);
     }
   }
 

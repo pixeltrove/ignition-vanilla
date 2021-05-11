@@ -34,8 +34,8 @@ function Menu(menu) {
     }
   }
 
-  function moveFocus(link, key) {
-    const currentIndex = links.indexOf(link);
+  function moveFocus(key) {
+    const currentIndex = links.indexOf(document.activeElement);
     const lastIndex = links.length - 1;
     let upcomingIndex;
 
@@ -80,7 +80,7 @@ function Menu(menu) {
   function handleFocusMove(event) {
     if (event.target.closest(SELECTOR_LINK) && ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
       event.preventDefault();
-      moveFocus(event.target.closest(SELECTOR_LINK), event.key);
+      moveFocus(event.key);
     }
   }
 

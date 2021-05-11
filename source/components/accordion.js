@@ -20,8 +20,8 @@ function Accordion(accordion) {
     panel.classList.toggle(CLASS_SHOWN);
   }
 
-  function moveFocus(slat, key) {
-    const currentIndex = slats.indexOf(slat);
+  function moveFocus(key) {
+    const currentIndex = slats.indexOf(document.activeElement);
     const lastIndex = slats.length - 1;
     let upcomingIndex;
 
@@ -52,7 +52,7 @@ function Accordion(accordion) {
   function handleSlatKeydown(event) {
     if (event.target.closest(SELECTOR_SLAT) && ["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
       event.preventDefault();
-      moveFocus(event.target.closest(SELECTOR_SLAT), event.key);
+      moveFocus(event.key);
     }
   }
 
