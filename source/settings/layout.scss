@@ -7,29 +7,17 @@ $container-max-width: 1240px;
 
 // Grid
 
-$gap-regular: 1.25rem;
-$gap-large: 2.5rem;
-
 $grid-regular: (
   default: (
     column-count: 2,
-    gap: $gap-regular,
+    gap: 1.25rem,
   ),
   tablet: (
     column-count: 6,
   ),
   laptop: (
     column-count: 12,
-    gap: $gap-large,
-  ),
-);
-$grid-auto: (
-  default: (
-    column-min-width: 160px,
-    gap: $gap-regular,
-  ),
-  laptop: (
-    gap: $gap-large,
+    gap: 2.5rem,
   ),
 );
 

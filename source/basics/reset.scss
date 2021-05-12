@@ -2,6 +2,7 @@
 // -----------------------------------------------------------------------------
 
 @use "../settings" as *;
+@use "../helpers/focus-visible" as *;
 
 // Universal
 
@@ -100,27 +101,33 @@ h6 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: $font-size-large-a;
+  line-height: $line-height-small-c;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: $font-size-large-b;
+  line-height: $line-height-small-b;
 }
 
 h3 {
-  font-size: 1.125rem;
+  font-size: $font-size-large-c;
+  line-height: $line-height-small-a;
 }
 
 h4 {
-  font-size: 1rem;
+  font-size: $font-size-large-d;
+  line-height: $line-height-small-a;
 }
 
 h5 {
-  font-size: 0.875rem;
+  font-size: $font-size-large-e;
+  line-height: $line-height-small-a;
 }
 
 h6 {
-  font-size: 0.75rem;
+  font-size: $font-size-regular;
+  line-height: $line-height-regular;
 }
 
 // Thematic break
@@ -173,7 +180,13 @@ video {
 img,
 video {
   max-width: 100%;
-  height: auto;
+}
+
+audio[controls],
+video[controls] {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }
 
 // Button, input, select, and textarea
@@ -203,13 +216,15 @@ button,
 }
 
 ::-webkit-file-upload-button {
-  font: inherit;
   -webkit-appearance: button;
 }
 
 [type="search"] {
-  outline-offset: -2px;
   -webkit-appearance: textfield;
+
+  &:focus {
+    outline-offset: -2px;
+  }
 
   &::-webkit-search-decoration {
     -webkit-appearance: none;
@@ -330,4 +345,12 @@ dialog {
 summary {
   display: list-item;
   cursor: pointer;
+}
+
+// Editable content
+
+[contenteditable] {
+  &:focus-visible {
+    @include focus-visible(default);
+  }
 }

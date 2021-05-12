@@ -16,14 +16,14 @@
   background-color: $color-white-regular;
 
   &:focus-visible {
-    @include focus-visible(alternative);
+    @include focus-visible(default);
   }
 
   &:disabled {
     border-color: $color-neutral-light-c;
   }
 
-  &.is-invalid:not(:focus) {
+  &.is-invalid {
     border-color: $color-negative-medium;
   }
 }

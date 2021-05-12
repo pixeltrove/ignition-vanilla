@@ -1,10 +1,10 @@
-// DROPDOWN
+// MENU
 // -----------------------------------------------------------------------------
 
 @use "../settings" as *;
 @use "../helpers/focus-visible" as *;
 
-.dropdown {
+.menu {
   position: absolute;
   z-index: $z-index-top;
   display: none;
@@ -45,7 +45,7 @@
   }
 }
 
-.dropdown-wrapper {
+.menu-wrapper {
   position: relative;
   display: inline-block;
 }

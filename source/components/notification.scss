@@ -42,7 +42,7 @@
     }
 
     &:focus-visible {
-      @include focus-visible(alternative);
+      @include focus-visible(default);
     }
 
     &:active {
@@ -52,6 +52,8 @@
 
   .notification-icon-dismiss {
     display: block;
+    width: 1rem;
+    height: 1rem;
     fill: currentColor;
   }
 }

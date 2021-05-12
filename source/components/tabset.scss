@@ -36,10 +36,7 @@
     }
 
     &:focus-visible {
-      @include focus-visible(copy);
-      &::after {
-        bottom: -1px;
-      }
+      @include focus-visible(default);
     }
   }
 

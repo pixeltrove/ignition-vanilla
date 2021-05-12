@@ -24,20 +24,3 @@
     }
   }
 }
-
-.grid-auto {
-  display: grid;
-
-  @each $breakpoint, $description in $grid-auto {
-    $prefix: if($breakpoint != "default", #{$breakpoint}\:, null);
-    $column-min-width: map.get($description, "column-min-width");
-    $gap: map.get($description, "gap");
-
-    @include set-breakpoint($breakpoint) {
-      @if ($column-min-width != null) {
-        grid-template-columns: repeat(auto-fill, minmax(#{$column-min-width}, 1fr));
-      }
-      gap: $gap;
-    }
-  }
-}
