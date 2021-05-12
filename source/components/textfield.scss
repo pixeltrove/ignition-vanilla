@@ -23,7 +23,7 @@
     border-color: $color-neutral-light-c;
   }
 
-  &.is-invalid:not(:focus) {
+  &.is-invalid {
     border-color: $color-negative-medium;
   }
 }
