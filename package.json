@@ -1,10 +1,10 @@
 {
-  "name": "ignition-vanilla",
+  "name": "lode-vanilla",
   "version": "1.0.0",
   "description": "A broad assortment of robust interface building blocks.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pixeltrove/ignition-vanilla.git"
+    "url": "https://github.com/pixeltrove/lode-vanilla.git"
   },
   "license": "MIT",
   "scripts": {
