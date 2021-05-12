@@ -54,8 +54,6 @@ function Tabset(tabset) {
         break;
     }
 
-    tabs[currentIndex].removeAttribute("tabIndex");
-    tabs[upcomingIndex].setAttribute("tabIndex", "-1");
     tabs[upcomingIndex].focus();
   }
 
